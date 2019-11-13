@@ -74,11 +74,73 @@ Bearing in mind the complexity problem to face, the most reasonable solution is 
 
 \section{Metropolis algorithm}
 
-\section{Genetic Algotirhm}
-Genetic algorithms are a widespread class of algotirhms that mimic nature. Indeed there are three fundamental operations they perform
-1) Selection --> choose the fittest hamiltonian cycle
+\section{Genetic Algotirthm}
+Genetic algorithms are a widespread class of algotirhms that mimic nature. Indeed there are three fundamental operations they perform, each operation is inspired by the theory of evolution by Darwin. Among a specie evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles.
+As random mutations can occur in nature but they are not so likely to accur, the algorithms swaps two nodes (cities) with a fixed and low probability.
+My own implementation of the algorithms performs the selection operation as follows:
+\begin{algorithm}[h]
+    \begin{algorithmic}[1]
+      \Function{selection}{\textbf{population},n\_paths}
+        \State $n\_parents \leftarrow$ unif[2,n\_paths/2]
+        \State order the population by fitness
+        \State \textbf{fittest\_subpopulation} $\leftarrow$ extract $n\_parents$ in order from the sorted population
+        \State return \textbf{fittest\_subpopulation}
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
+\noindent where \textbf{population} is an array of hamiltonian cycles
+
+\begin{algorithm}
+    \begin{algorithmic}[1]
+      \Function{crossbreeding}{\textbf{fittest\_subpopulation}}
+      	\For {i in 1, ..., n\_paths}
+  			\State choose parent1 uniformely among the \textbf{fittest\_subpopulation}
+  			\State Choose parent2 uniformely among the \textbf{fittest\_subpopulation}
+  			\If {parent1 different from parent2}
+  				\State choose position1 randomly among uni([0,length of cycles-1)
+  				\State choose position2 randomly among uni([0,length of cycles-1)
+  				\State divide parent1 in three sections: 
+  				\State[parent10:position1] 
+  				\State parent1[position1:position2]
+  				\State parent1[posotion2:]
+  				\State divide parent2 in three sections:
+  				\State parent2[0:position1] 
+  				\State parent2[position1:position2]
+  				\State parent2[posotion2:]
+  				\State breed child1 justapposing in the order:
+  				\State parent1[0:position1]
+  				\State all the cities not in  parent1[0:position1] and not in parent2[posotion2:]
+  				\State parent2[posotion2:]
+  				\State breed child2 justapposing in the order:
+  				\State parent2[0:position1]
+  				\State all the cities not in  parent2[0:position1] and not in parent1[posotion2:]
+  				\State parent1[posotion2:]
+  			\Else
+  				\State child1 $\leftarrow$ parent1
+  				\State child2 $\leftarrow$ parent1
+  			\EndIf
+      	\EndFor
+        \State \textbf{new\_population} is a vector of the children 
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
 2) Crossbreeding --> obtain new hamiltonian cycles exchanging the gines of the parents
 3) Mutation --> exchange genes randomly
+\begin{algorithm}[h]
+    \begin{algorithmic}[1]
+      \Function{mutate}{\textbf{\textbf{new\_population}}, p}
+        \State test $\leftarrow$ unif[0,1]
+        \If test $<$ p
+        	\State choose position1 randomly among uni([0,length of cycles-1)
+  			\State choose position2 randomly among uni([0,length of cycles-1)
+  			\State swap the cities in position1 and position2
+        \EndIf
+        \State order the population by fitness
+        \State \textbf{fittest\_subpopulation} $\leftarrow$ extract $n\_parents$ in order from the sorted population
+        \State return \textbf{fittest\_subpopulation}
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
 \section{dataset}
 
 \section{results}
