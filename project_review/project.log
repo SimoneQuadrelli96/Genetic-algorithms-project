@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.15)  13 NOV 2019 18:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.15)  13 NOV 2019 19:02
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -352,11 +352,14 @@ Package pdftex.def Info: complexity_classes.png  used on input line 68.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [2 <./complexity_classes.png>] [3] [4] (./project.aux) ) 
 Here is how much of TeX's memory you used:
  4426 strings out of 492982
  66169 string characters out of 6134895
- 136063 words of memory out of 5000000
+ 137063 words of memory out of 5000000
  7928 multiletter control sequences out of 15000+600000
  8526 words of font info for 31 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -374,7 +377,7 @@ r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on project.pdf (6 pages, 254071 bytes).
+Output written on project.pdf (6 pages, 255472 bytes).
 PDF statistics:
  78 PDF objects out of 1000 (max. 8388607)
  53 compressed objects within 1 object stream

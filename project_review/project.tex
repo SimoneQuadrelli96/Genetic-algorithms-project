@@ -97,8 +97,8 @@ My own implementation of the algorithms performs the selection operation as foll
   			\State choose parent1 uniformely among the \textbf{fittest\_subpopulation}
   			\State Choose parent2 uniformely among the \textbf{fittest\_subpopulation}
   			\If {parent1 different from parent2}
-  				\State choose position1 randomly among uni([0,length of cycles-1)
-  				\State choose position2 randomly among uni([0,length of cycles-1)
+  				\State choose position1 randomly among unif([0,length of cycles-1)
+  				\State choose position2 randomly among unif([0,length of cycles-1)
   				\State divide parent1 in three sections: 
   				\State[parent10:position1] 
   				\State parent1[position1:position2]
@@ -128,16 +128,27 @@ My own implementation of the algorithms performs the selection operation as foll
 3) Mutation --> exchange genes randomly
 \begin{algorithm}[h]
     \begin{algorithmic}[1]
-      \Function{mutate}{\textbf{\textbf{new\_population}}, p}
+      \Function{mutate}{\textbf{new\_population}, p}
         \State test $\leftarrow$ unif[0,1]
-        \If test $<$ p
-        	\State choose position1 randomly among uni([0,length of cycles-1)
-  			\State choose position2 randomly among uni([0,length of cycles-1)
+        \If {test $<$ p}
+        	\State choose position1 randomly among unif([0,length of cycles-1)
+  			\State choose position2 randomly among unif([0,length of cycles-1)
   			\State swap the cities in position1 and position2
         \EndIf
         \State order the population by fitness
         \State \textbf{fittest\_subpopulation} $\leftarrow$ extract $n\_parents$ in order from the sorted population
         \State return \textbf{fittest\_subpopulation}
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[h]
+    \begin{algorithmic}[1]
+      \Function{evolve}{\textbf{population}}
+        \State \textbf{fittest\_population} $\leftarrow$ SELECT(\textbf{population})
+        \State \textbf{new\_population} $\leftarrow$ CROSSBREED(\textbf{fittest\_population})
+       \State \textbf{population} $\leftarrow$ MUTATE(\textbf{new\_population})
        \EndFunction
 \end{algorithmic}
 \end{algorithm}
