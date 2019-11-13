@@ -61,19 +61,24 @@ The aim of this project is to solve the travelling salesman problem (TSP) which 
 The travelling salesman problem consists in finding the shortest route a travelling salesman has to take to visit all the city he must reach only once and to return to the starting point. The route described is called in graph theory \textit{hamiltonian cycle} (i.e a cycle that pass through each vertex of a graph just once), indeed the oldest and more technical formulation of the problem was proposed by Hamilton. \\
 An algorithm that provides a solution to TSP can be exploited in a wide variety of applications: indeed it can be used in logistics to optimize the path of vehicles and therefore to reduce costs.
 It is possible to model the problem usign an undirected, weighted and fully connected graph \footnote{For an hamiltinian cycle to exist the graph must be at least connected} $G = (N,E)$, where $N$ is the set of the cities to visit and $E =  N \times N$ is the weight of the path. In this particular instance of the probelm the weights correspond to the euclidean between each couple of cities.
+THe mailtonian cycle can be defined as a sequence $(n_0, .., n_{k-1})$ of length k such that $n_i \neq n_j \; \forall i,j \in \{1,..., |N|\}$ and such that $(i,j) \in E \; \forall i,j \in \{1,..., |N|\}$
 The most naive solution is to compute all the possible paths but they are factorial in the number of cities $n$ in input. The number of possible cycles is $(n-1)!$ and grows faster that $2^n$ (i.e $2^n = o(n!)$). Therefore even if it was possible to find them in constant time the algorithm will have an expnential time complexity and would not be solved in finite time for large $n$. 
-More techically, TSP is an NP-hard problem. A NP-hard problem is a problem at least as hard as the hardest NP-complete problem. NP-complete problem is a problem that can be solved in polynomial time by a non-deterministic algorithm. For such a class of problem there exists no polynomial algorithm that can solve the problems and may not exist, still noone was able to prove that such algorithms does not exists
-\\
-Inserisci immagine delle classi di complessita
-\\
-\section{NP-hard probelms and complexity theory}
+More techically, TSP is an NP-hard problem. A NP-hard problem is a problem at least as hard as the hardest NP-complete problem. NP-complete problem is a problem that can be solved in polynomial time by a non-deterministic algorithm. For such a class of problem there exists no polynomial algorithm that can solve the problems and may not exist, still noone was able to prove that such algorithms does not exists.
+\begin{figure}
+\includegraphics[scale=1]{complexity_classes.png} 
+\centering
+\end{figure}
+Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximately. The technique I to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the fittest hamiltonian cycle is done by the simulated annealing algorithm
 
 \section{Simulated annealing}
 
 \section{Metropolis algorithm}
 
 \section{Genetic Algotirhm}
-
+Genetic algorithms are a widespread class of algotirhms that mimic nature. Indeed there are three fundamental operations they perform
+1) Selection --> choose the fittest hamiltonian cycle
+2) Crossbreeding --> obtain new hamiltonian cycles exchanging the gines of the parents
+3) Mutation --> exchange genes randomly
 \section{dataset}
 
 \section{results}

@@ -1,7 +1,6 @@
 \contentsline {section}{\numberline {1}Introduction}{1}
-\contentsline {section}{\numberline {2}NP-hard probelms and complexity theory}{2}
-\contentsline {section}{\numberline {3}Simulated annealing}{2}
-\contentsline {section}{\numberline {4}Metropolis algorithm}{2}
-\contentsline {section}{\numberline {5}Genetic Algotirhm}{2}
-\contentsline {section}{\numberline {6}dataset}{2}
-\contentsline {section}{\numberline {7}results}{2}
+\contentsline {section}{\numberline {2}Simulated annealing}{2}
+\contentsline {section}{\numberline {3}Metropolis algorithm}{2}
+\contentsline {section}{\numberline {4}Genetic Algotirhm}{2}
+\contentsline {section}{\numberline {5}dataset}{2}
+\contentsline {section}{\numberline {6}results}{2}
