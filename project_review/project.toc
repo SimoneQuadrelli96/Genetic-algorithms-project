@@ -1,6 +1,6 @@
 \contentsline {section}{\numberline {1}Introduction}{1}
 \contentsline {section}{\numberline {2}Simulated annealing}{1}
-\contentsline {section}{\numberline {3}Metropolis algorithm}{1}
-\contentsline {section}{\numberline {4}Genetic Algotirthm}{1}
-\contentsline {section}{\numberline {5}dataset}{2}
-\contentsline {section}{\numberline {6}results}{2}
+\contentsline {section}{\numberline {3}Metropolis algorithm}{2}
+\contentsline {section}{\numberline {4}Genetic Algotirthm}{2}
+\contentsline {section}{\numberline {5}dataset}{3}
+\contentsline {section}{\numberline {6}results}{3}

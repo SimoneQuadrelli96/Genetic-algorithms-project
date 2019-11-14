@@ -71,6 +71,30 @@ More techically, TSP is an NP-hard problem. A NP-hard problem is a problem at le
 Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximately. The technique I to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the fittest hamiltonian cycle is done by the simulated annealing algorithm
 
 \section{Simulated annealing}
+Simulated annealing (SA) is a technique that mimic the behaviour of heated materials in metallurgy that can be slowly cooled down, this process decreases the impurity and increases the size of the crystals. It is a technique that pproximates the global optimal solution when the solutions is to be searched in an enormous space. SA is a metaheuristic meaning that it is not a probelm specific heuristic and that can be used to reduce the search space of an algorithm, the genetic algorithm in our case.\\
+SA very usefull since it does not require any prior information, indeed it just supposes that the states (hamiltonian cycles in our case) are distributed accordingly to the Bolzmann distribution:
+\begin{equation}
+\exp^{- \beta (cost(new state) - cost(old state))}
+\end{equation}
+The temperature $T$ stated before is $T = \frac{1}{\beta}$, therefore we start with low values of betas (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicing the decrease in temperature.
+The only other information needed is the cost function. For this specific application the cost function is the euclidean distance between the cities. The $(x,y)$ are expressed in latitude and longitude (CONTROLLA L'ORDINE). Therefore given the coordinates of two cities  $(x_1,y_1)$ and $(x_3,y_2)$
+\begin{equation}
+cost((x_1,y_1),(x_2,y_2)) = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}
+\end{equation}
+
+\begin{algorithm}[h]
+    \begin{algorithmic}[1]
+      \Function{simulated annealing}{}
+        \State s $\leftarrow$ generate starting state
+         \For {b in \textbf{betas}}
+         	\For{n in 1,.., number of simulations}
+         	\State ns  $\leftarrow$ sample new states with metropolis algorithm
+         	\EndFor
+        \EndFor
+        \State return ns
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 \section{Metropolis algorithm}
 
