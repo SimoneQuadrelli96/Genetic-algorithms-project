@@ -97,12 +97,33 @@ cost((x_1,y_1),(x_2,y_2)) = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}
 \end{algorithm}
 
 \section{Metropolis algorithm}
+Metropolis algorithm is used to sample values from a probability distribution moving at each step with high probability from a state with lower probability from a stete with higher probability
+
+\begin{algorithm}[H]
+    \begin{algorithmic}[1]
+      \Function{metropolis}{old\_state, new\_state}
+      	\If {cost(new\_state) $<$ cost(new\_state)}
+      	\State return new\_state
+      	\EndIf
+        \State threshold $\leftarrow$ unif[0,1]
+        \State p  $\leftarrow min\{1,\exp^{- \beta (cost(new\_state) - cost(old\_state))} \}$ 
+        \If {p $>$ threshold}
+        	\State return new\_state
+        \Else
+        	\State returm old\_state
+        \EndIf
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
+where new\_state and old\_state are hamiltonian cycles.
+Metrpolis algorithm comnverges to the stationary distribution in logarithmic time, having fixed the approximation. Therefore we execute in for a sufficient number of iterations to converge to the stationary distribution. Then we change the value of $\beta$ in the simulated annealing to proceed toward the optimum.
+
 
 \section{Genetic Algotirthm}
 Genetic algorithms are a widespread class of algotirhms that mimic nature. Indeed there are three fundamental operations they perform, each operation is inspired by the theory of evolution by Darwin. Among a specie evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles.
 As random mutations can occur in nature but they are not so likely to accur, the algorithms swaps two nodes (cities) with a fixed and low probability.
 My own implementation of the algorithms performs the selection operation as follows:
-\begin{algorithm}[h]
+\begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{selection}{\textbf{population},n\_paths}
         \State $n\_parents \leftarrow$ unif[2,n\_paths/2]
@@ -114,7 +135,7 @@ My own implementation of the algorithms performs the selection operation as foll
 \end{algorithm}
 \noindent where \textbf{population} is an array of hamiltonian cycles
 
-\begin{algorithm}
+\begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{crossbreeding}{\textbf{fittest\_subpopulation}}
       	\For {i in 1, ..., n\_paths}
@@ -150,7 +171,7 @@ My own implementation of the algorithms performs the selection operation as foll
 \end{algorithm}
 2) Crossbreeding --> obtain new hamiltonian cycles exchanging the gines of the parents
 3) Mutation --> exchange genes randomly
-\begin{algorithm}[h]
+\begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{mutate}{\textbf{new\_population}, p}
         \State test $\leftarrow$ unif[0,1]
@@ -167,7 +188,7 @@ My own implementation of the algorithms performs the selection operation as foll
 \end{algorithm}
 
 
-\begin{algorithm}[h]
+\begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{evolve}{\textbf{population}}
         \State \textbf{fittest\_population} $\leftarrow$ SELECT(\textbf{population})
