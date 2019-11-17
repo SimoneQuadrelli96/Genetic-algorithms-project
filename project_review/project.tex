@@ -101,7 +101,14 @@ cost((x_1,y_1),(x_2,y_2)) = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}
 \end{algorithm}
 
 \section{Metropolis algorithm}
-Metropolis is a Markov Chain Monte Carlo (MCMC) algorithm used to generate values from a finite set of values $S$ accordingly to a target probability distribution $\pi$. It is designed in such a way that it is very lilely to move from a state with lower probability from a stete with higher probability. \\
+Metropolis is a Markov Chain Monte Carlo (MCMC) algorithm used to generate values $X_n$ from a finite set of values $S$ accordingly to a target probability distribution $\pi$.  \\
+An homogeneous and finite Markov chain with state space $S$, transition matrix $P$ and initial distribution $\mu$ is a sequence of random variables $\{ X_n \}_{n \in N}$ such that
+\begin{enumerate}
+\item $\forall i \in S \, Pr(X_0=i)= \mu(i)$ 
+\item $\forall n > 0 \, \forall i_n,...,i_0 \,  Pr(X_{n+1} = j | X_n = i_n,..., X_0=i_0) = Pr(X_{n+1} = j | X_n = i)$
+\item $\forall n > 0 \, Pr(X_{n+1} = j | X_n = i) = p(i,j) $
+\end{enumerate}
+Metropolis algorithm is designed in such a way that it is very lilely to move from a state with lower probability from a stete with higher probability. \\
 The following algorithms describes the metropolis algorithm when the target distribution is $\pi(\text{state}) = \exp^{\beta \text{cost(state)}}$ and $S$ is the set of all possible hamiltonian cycles having fixed their length. In the following we suppose to have generated two hamiltonian cycles (i.e states) old\_state, new\_state and we want to understand if new\_state can come from $\pi$. If new\_state is likely to be a sample of $\pi$ we use it as new state otherwise we keep old\_state as the current state.
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -146,15 +153,12 @@ If a probability distribution $\pi$ is a reversible distribution for a markov ch
 \begin{proof}
 $ (\pi'P)_j = sum_{i \in S} \pi(i)p(i,j) = \sum_{i \in S} \pi(j)p(j,i) = \pi(j) $ 
 \end{proof}
-If this distribution was unique than we are certain to correctly generate the data accordingly to the target distribution. The stationary distibution is unique if the transition matrix is primitive as stated by the follwing theorem.
+\noindent If this distribution was unique than we are certain to correctly generate the data accordingly to the target distribution. The stationary distibution is unique if the transition matrix is primitive as stated by the follwing theorem.
 \begin{theorem}
 Let $\{X_n\}$ be a markov chain with a primitive (i.e primitive and aperiodic) transition matrix on a finite set, then  there exist only one stationary distribution and it as also the limit distribution $\lim_{x \to \infty} p^n(i,j) = \pi(j)\,  \forall i \in S$
 \end{theorem}
-Since $P$ is primitive is enough to compute the limit distribution to find the stationay distribution. \\
-The stationary distribution can be approximated
-Markov chains converge exponentially fast to the stationary distibution starting from any distribution. To sample hamiltonian cycle from the correct distribution is enough to let the simulation go on for a suitable number of iterations. \\
-Metrpolis algorithm comnverges to the stationary distribution in logarithmic time, having fixed the approximation. Therefore we execute in for a sufficient number of iterations to converge to the stationary distribution. Then we change the value of $\beta$ in the simulated annealing to proceed toward the optimum.
-
+\noindent Since $P$ is primitive is enough to compute the limit distribution to find the stationay distribution. \\
+The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution.Therefor to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations. \\
 \section{Genetic Algotirthm}
 Genetic algorithms are a widespread class of algotirhms that mimic nature. Indeed there are three fundamental operations they perform, each operation is inspired by the theory of evolution by Darwin. Among a specie evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles.
 As random mutations can occur in nature but they are not so likely to accur, the algorithms swaps two nodes (cities) with a fixed and low probability.
