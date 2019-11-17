@@ -7,7 +7,11 @@
 \usepackage{algpseudocode}
 \usepackage{changepage}
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage[driver=pdftex]{geometry}
+
+\newtheorem{theorem}{Theorem}
+
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\argmin}{argmin}
 
@@ -97,8 +101,8 @@ cost((x_1,y_1),(x_2,y_2)) = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}
 \end{algorithm}
 
 \section{Metropolis algorithm}
-Metropolis algorithm is used to sample values from a probability distribution moving at each step with high probability from a state with lower probability from a stete with higher probability
-
+Metropolis is a Markov Chain Monte Carlo (MCMC) algorithm used to generate values from a finite set of values $S$ accordingly to a target probability distribution $\pi$. It is designed in such a way that it is very lilely to move from a state with lower probability from a stete with higher probability. \\
+The following algorithms describes the metropolis algorithm when the target distribution is $\pi(\text{state}) = \exp^{\beta \text{cost(state)}}$ and $S$ is the set of all possible hamiltonian cycles having fixed their length. In the following we suppose to have generated two hamiltonian cycles (i.e states) old\_state, new\_state and we want to understand if new\_state can come from $\pi$. If new\_state is likely to be a sample of $\pi$ we use it as new state otherwise we keep old\_state as the current state.
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{metropolis}{old\_state, new\_state}
@@ -115,9 +119,41 @@ Metropolis algorithm is used to sample values from a probability distribution mo
        \EndFunction
 \end{algorithmic}
 \end{algorithm}
-where new\_state and old\_state are hamiltonian cycles.
-Metrpolis algorithm comnverges to the stationary distribution in logarithmic time, having fixed the approximation. Therefore we execute in for a sufficient number of iterations to converge to the stationary distribution. Then we change the value of $\beta$ in the simulated annealing to proceed toward the optimum.
+\noindent
+\subsection{Properties of metropolis algorithm}
+We can model the generation of new hamiltonian cycles usign a undirected and connected graph $G = (S,E)$ whose set of states $S$ contains all the possible hamiltonian cycles and $E$ contains the transition probability from an hamiltonian cycle to another one. Given the graph, we can define the transition matrix $P=p(i,j)]_{i,j\in S}$ as
+\begin{equation}
+p(i,j) =  \begin{cases} 
+	0\, & \mbox{if } \{i,j\} \notin E  \\ 
+	\frac{1}{d_i} \min\{1,\frac{\pi(j)}{\pi(i)}\} & \mbox{if }  \{i,j\} \in E \; i \neq j\\
+	\frac{1}{d_i} \sum_{l \in adj(i)} \min\{1,\frac{\pi(l)}{\pi(i)}\}  & \mbox{if }  i = j 
+\end{cases}
+\end{equation}
+Since G is a connected graph, the $P$ is irriducible meaning that $\forall i,j \in S \, p^n(i,j) > 0$, where $p^n(i,j)$ means that exist a path from $i$ to $j$ of length $n$.\\
+It can also be proved that $P$ is aperiodic \cite{metropolis}. By aperidoicity we mean each node of the graph has a loop. More formally, th graph $G$ is aperiodic if $\forall i \in S, \,d(i)  = 1$ where
+\begin{equation}
+d(i) = mcd \{n \in N | \, \text{exist a cycle from i to i of length} \, n\}
+\end{equation}
+Metropolis algorithm defines a probability distributin $\pi$ that is a reversible distribution, meaning that
+\begin{equation}
+	\pi(i)p(i,j) = \pi(j)p(j,i) \;\; \forall i,j \in S
+\end{equation}
+This is a key feature of the algorithm since a reversible distribution $\pi$ is also a stationary distribution $\pi'P=\pi'$. This condition holds by the following theprem
+\begin{theorem}
+If a probability distribution $\pi$ is a reversible distribution for a markov chain $ \{X_n\} $, then it is also a stationary distribution.
+\end{theorem}
 
+\begin{proof}
+$ (\pi'P)_j = sum_{i \in S} \pi(i)p(i,j) = \sum_{i \in S} \pi(j)p(j,i) = \pi(j) $ 
+\end{proof}
+If this distribution was unique than we are certain to correctly generate the data accordingly to the target distribution. The stationary distibution is unique if the transition matrix is primitive as stated by the follwing theorem.
+\begin{theorem}
+Let $\{X_n\}$ be a markov chain with a primitive (i.e primitive and aperiodic) transition matrix on a finite set, then  there exist only one stationary distribution and it as also the limit distribution $\lim_{x \to \infty} p^n(i,j) = \pi(j)\,  \forall i \in S$
+\end{theorem}
+Since $P$ is primitive is enough to compute the limit distribution to find the stationay distribution. \\
+The stationary distribution can be approximated
+Markov chains converge exponentially fast to the stationary distibution starting from any distribution. To sample hamiltonian cycle from the correct distribution is enough to let the simulation go on for a suitable number of iterations. \\
+Metrpolis algorithm comnverges to the stationary distribution in logarithmic time, having fixed the approximation. Therefore we execute in for a sufficient number of iterations to converge to the stationary distribution. Then we change the value of $\beta$ in the simulated annealing to proceed toward the optimum.
 
 \section{Genetic Algotirthm}
 Genetic algorithms are a widespread class of algotirhms that mimic nature. Indeed there are three fundamental operations they perform, each operation is inspired by the theory of evolution by Darwin. Among a specie evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles.
@@ -200,5 +236,21 @@ My own implementation of the algorithms performs the selection operation as foll
 \section{dataset}
 
 \section{results}
+
+\begin{thebibliography}{9}
+
+\bibitem{metropolis}
+Oliver Catoni
+\textit{Simulated annealing algorithms and Markov chains with rare transitions}, Séminaire de probabilités (Strasbourg), tome 33 (1999), p. 69-119.
+
+
+\bibitem{reducing dimesionality} 
+G. E. Hinton and R.R. Salakhutdinov, 
+\textit{Reducing the Dimensionality of Data with Neural Networks}. 
+Science, 29 July 2006, Vol 313, 504-507.
+ 
+
+
+\end{thebibliography}
 
 \end{document}
