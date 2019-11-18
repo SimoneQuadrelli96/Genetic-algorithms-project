@@ -62,37 +62,40 @@
 The aim of this project is to solve the travelling salesman problem (TSP) which consists in finding the shortest cycle among all the cities. The problem is a \textit{NP-hard} problem and therefore there exist no feasible algorithm to solve if for any possible set of cities in input. The appromximately optimal solution was computed by the simulated annealing, while the possible cycles are produced by a genetic algorithm.
 
 \section{Introduction}
-The travelling salesman problem consists in finding the shortest route a travelling salesman has to take to visit all the city he must reach only once and to return to the starting point. The route described is called in graph theory \textit{hamiltonian cycle} (i.e a cycle that pass through each vertex of a graph just once), indeed the oldest and more technical formulation of the problem was proposed by Hamilton. \\
-An algorithm that provides a solution to TSP can be exploited in a wide variety of applications: indeed it can be used in logistics to optimize the path of vehicles and therefore to reduce costs.
-It is possible to model the problem usign an undirected, weighted and fully connected graph \footnote{For an hamiltinian cycle to exist the graph must be at least connected} $G = (N,E)$, where $N$ is the set of the cities to visit and $E =  N \times N$ is the weight of the path. In this particular instance of the probelm the weights correspond to the euclidean between each couple of cities.
-THe mailtonian cycle can be defined as a sequence $(n_0, .., n_{k-1})$ of length k such that $n_i \neq n_j \; \forall i,j \in \{1,..., |N|\}$ and such that $(i,j) \in E \; \forall i,j \in \{1,..., |N|\}$
-The most naive solution is to compute all the possible paths but they are factorial in the number of cities $n$ in input. The number of possible cycles is $(n-1)!$ and grows faster that $2^n$ (i.e $2^n = o(n!)$). Therefore even if it was possible to find them in constant time the algorithm will have an expnential time complexity and would not be solved in finite time for large $n$. 
-More techically, TSP is an NP-hard problem. A NP-hard problem is a problem at least as hard as the hardest NP-complete problem. NP-complete problem is a problem that can be solved in polynomial time by a non-deterministic algorithm. For such a class of problem there exists no polynomial algorithm that can solve the problems and may not exist, still noone was able to prove that such algorithms does not exists.
-\begin{figure}
+The travelling salesman problem (TSP) consists in finding the shortest route a travelling salesman has to take to visit all the city only once and to return to the starting point. The route described is called \textit{hamiltonian cycle} in graph theory (i.e. a cycle that pass through each vertex of a graph just once), indeed the oldest and more technical formulation of the problem was proposed by Hamilton. \\
+An algorithm that provides a solution to the travelling salesman problem can be exploited in a wide variety of applications: indeed it can be used in logistics to optimize the path of vehicles and therefore to reduce costs.
+It is possible to model the problem usign an undirected, weighted and fully connected graph \footnote{For an hamiltinian cycle to exist the graph must be at least connected} $G = (N,E)$, where $N$ is the set of the cities to visit and $E =  N \times N$ is the weight of the path. In this particular instance of the problem the weights correspond to the euclidean distance between each couple of cities.
+Formally, an hamiltonian cycle can be defined as a sequence $(n_0, .., n_{k-1})$ of length k such that $n_i \neq n_j \; \forall i,j \in \{1,..., |N|\}$. \\
+\subsection{Hardness of the travelling salesman problem}
+Solving the travelling salesman problem pose very tricky computational problems. Indeed, the most intuitive solution to the problem consist in computing all the possible paths and then evaluate all their lengths to find the shortest. But the number of possible cycles is $(n-1)!$ and grows faster that $2^n$ (i.e. $2^n = o(n!)$) and thus the problem cannot be solved in finite time for large $n$. Morover, even if it was possible to generate each hamiltonian cycle in constant time independently from their length, the algorithm will have an exponential time complexity to find the best result.  \\
+More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least as hard as the hardest NP-complete problem. \textit{NP-complete} problems are problems that can be solved in polynomial time by a non-deterministic algorithm. For such a class of problem there exists no polynomial algorithm that can solve the problems and may not exist, still noone was able to prove that such algorithms does not exists.
+\begin{figure}[H]
 \includegraphics[scale=1]{complexity_classes.png} 
 \centering
 \end{figure}
-Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximately. The technique I to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the fittest hamiltonian cycle is done by the simulated annealing algorithm
+\noindent Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximatively. The technique I used to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the shortest hamiltonian cycle is done by the \textit{simulated annealing} algorithm.
 
 \section{Simulated annealing}
-Simulated annealing (SA) is a technique that mimic the behaviour of heated materials in metallurgy that can be slowly cooled down, this process decreases the impurity and increases the size of the crystals. It is a technique that pproximates the global optimal solution when the solutions is to be searched in an enormous space. SA is a metaheuristic meaning that it is not a probelm specific heuristic and that can be used to reduce the search space of an algorithm, the genetic algorithm in our case.\\
-SA very usefull since it does not require any prior information, indeed it just supposes that the states (hamiltonian cycles in our case) are distributed accordingly to the Bolzmann distribution:
+Simulated annealing (SA) is a technique that mimic the behaviour of heated materials slowly cooled down in metallurgy, this process decreases the impurity and increases the size of the crystals meaning that allows materials to reach the state that minimizes the energy. It is a technique to proximate the global optimal solution when the solutions is to be searched in an enormous space. SA is a metaheuristic meaning that it is not a probelm specific stochastic heuristic and that can be used to reduce the search space of an algorithm, the genetic algorithm in our case.\\
+SA very usefull since it does not require any prior information, indeed it just supposes that states (hamiltonian cycles in our case) are distributed accordingly to the Bolzmann distribution:
 \begin{equation}
-\exp^{- \beta (cost(new state) - cost(old state))}
+\exp^{- \beta (cost(state))}
 \end{equation}
-The temperature $T$ stated before is $T = \frac{1}{\beta}$, therefore we start with low values of betas (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicing the decrease in temperature.
-The only other information needed is the cost function. For this specific application the cost function is the euclidean distance between the cities. The $(x,y)$ are expressed in latitude and longitude (CONTROLLA L'ORDINE). Therefore given the coordinates of two cities  $(x_1,y_1)$ and $(x_3,y_2)$
+The underlying assunption of simulated annealing is that the optimal states are the states with the lowest cost, and they are reached as the temperature decreases. The temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore we start with low values of betas (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicing the decrease in temperature.
+The only other information needed is the cost function. For this specific application the cost function is the euclidean distance between the cities. The coordinate of a city $(x,y)$ are expressed in longitude and latitude. Therefore given the coordinates of two cities  $(x_1,y_1)$ and $(x_2,y_2)$
 \begin{equation}
-cost((x_1,y_1),(x_2,y_2)) = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}
+cost((x_1,y_1),(x_2,y_2)) = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}
 \end{equation}
+In the following we provide a schematic overview of the simulated annealing implemented.
 
-\begin{algorithm}[h]
+\begin{algorithm}[H]
     \begin{algorithmic}[1]
-      \Function{simulated annealing}{}
-        \State s $\leftarrow$ generate starting state
+      \Function{simulated annealing}{\textbf{betas},number of simulations}
+        \State s $\leftarrow$ generate starting state with the genetic algorithm
          \For {b in \textbf{betas}}
          	\For{n in 1,.., number of simulations}
-         	\State ns  $\leftarrow$ sample new states with metropolis algorithm
+         	 \State ns $\leftarrow$ generate a new state with the genetic algorithm starting from s
+         	\State ns $\leftarrow$ METROPOLIS(s,ns,$\beta$)
          	\EndFor
         \EndFor
         \State return ns
@@ -100,40 +103,43 @@ cost((x_1,y_1),(x_2,y_2)) = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}
 \end{algorithmic}
 \end{algorithm}
 
+\noindent where \textbf{betas} is a set of the values of $\beta$. \\ 
+The code executes all the procedures using a vectorial implementation to speed up the computation.
+
 \section{Metropolis algorithm}
 Metropolis is a Markov Chain Monte Carlo (MCMC) algorithm used to generate values $X_n$ from a finite set of values $S$ accordingly to a target probability distribution $\pi$.  \\
 An homogeneous and finite Markov chain with state space $S$, transition matrix $P$ and initial distribution $\mu$ is a sequence of random variables $\{ X_n \}_{n \in N}$ such that
 \begin{enumerate}
 \item $\forall i \in S \, Pr(X_0=i)= \mu(i)$ 
-\item $\forall n > 0 \, \forall i_n,...,i_0 \,  Pr(X_{n+1} = j | X_n = i_n,..., X_0=i_0) = Pr(X_{n+1} = j | X_n = i)$
+\item $\forall n > 0 \; \forall i_n,...,i_0 \,  Pr(X_{n+1} = j | X_n = i_n,..., X_0=i_0) = Pr(X_{n+1} = j | X_n = i)$
 \item $\forall n > 0 \, Pr(X_{n+1} = j | X_n = i) = p(i,j) $
 \end{enumerate}
-Metropolis algorithm is designed in such a way that it is very lilely to move from a state with lower probability from a stete with higher probability. \\
-The following algorithms describes the metropolis algorithm when the target distribution is $\pi(\text{state}) = \exp^{\beta \text{cost(state)}}$ and $S$ is the set of all possible hamiltonian cycles having fixed their length. In the following we suppose to have generated two hamiltonian cycles (i.e states) old\_state, new\_state and we want to understand if new\_state can come from $\pi$. If new\_state is likely to be a sample of $\pi$ we use it as new state otherwise we keep old\_state as the current state.
+Metropolis algorithm is designed in such a way that it is very likely to move from a state with lower probability from a state with higher probability. \\
+The following algorithm describes the metropolis algorithm when the target distribution is $\pi(\text{state}) = \exp^{- \beta \, \text{cost(state)}}$ and $S$ is the set of all possible hamiltonian cycles having fixed their length. In the following we suppose to have generated two hamiltonian cycles (i.e states) old\_state, new\_state and we want to understand if new\_state can come from $\pi$. If new\_state is likely to be a sample of $\pi$ we use it as new state otherwise we keep old\_state as the current state.
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
-      \Function{metropolis}{old\_state, new\_state}
+      \Function{metropolis}{old\_state, new\_state, $\beta$}
       	\If {cost(new\_state) $<$ cost(new\_state)}
       	\State return new\_state
       	\EndIf
         \State threshold $\leftarrow$ unif[0,1]
-        \State p  $\leftarrow min\{1,\exp^{- \beta (cost(new\_state) - cost(old\_state))} \}$ 
+        \State p  $\leftarrow min\{1,\exp^{- \beta (\text{cost(new\_state}) - \text{cost(old\_state}))} \}$ 
         \If {p $>$ threshold}
         	\State return new\_state
         \Else
-        	\State returm old\_state
+        	\State return old\_state
         \EndIf
        \EndFunction
 \end{algorithmic}
 \end{algorithm}
 \noindent
 \subsection{Properties of metropolis algorithm}
-We can model the generation of new hamiltonian cycles usign a undirected and connected graph $G = (S,E)$ whose set of states $S$ contains all the possible hamiltonian cycles and $E$ contains the transition probability from an hamiltonian cycle to another one. Given the graph, we can define the transition matrix $P=p(i,j)]_{i,j\in S}$ as
+We can model the generation of new hamiltonian cycles using a undirected and connected graph $G = (S,E)$ whose set of states $S$ contains all the possible hamiltonian cycles and $E$ contains the transition probability from an hamiltonian cycle to another one. Given the graph, we can define the transition matrix $P=p(i,j)]_{i,j\in S}$ as
 \begin{equation}
 p(i,j) =  \begin{cases} 
 	0\, & \mbox{if } \{i,j\} \notin E  \\ 
-	\frac{1}{d_i} \min\{1,\frac{\pi(j)}{\pi(i)}\} & \mbox{if }  \{i,j\} \in E \; i \neq j\\
-	\frac{1}{d_i} \sum_{l \in adj(i)} \min\{1,\frac{\pi(l)}{\pi(i)}\}  & \mbox{if }  i = j 
+	\frac{1}{d_i} \min\{1,\frac{\pi(j)}{\pi(i)}\} & \mbox{if }  \{i,j\} \in E \;,\, i \neq j\\
+	1-\frac{1}{d_i} \sum_{l \in adj(i)} \min\{1,\frac{\pi(l)}{\pi(i)}\}  & \mbox{if }  i = j 
 \end{cases}
 \end{equation}
 Since G is a connected graph, the $P$ is irriducible meaning that $\forall i,j \in S \, p^n(i,j) > 0$, where $p^n(i,j)$ means that exist a path from $i$ to $j$ of length $n$.\\
@@ -145,35 +151,37 @@ Metropolis algorithm defines a probability distributin $\pi$ that is a reversibl
 \begin{equation}
 	\pi(i)p(i,j) = \pi(j)p(j,i) \;\; \forall i,j \in S
 \end{equation}
-This is a key feature of the algorithm since a reversible distribution $\pi$ is also a stationary distribution $\pi'P=\pi'$. This condition holds by the following theprem
+This is a key feature of the algorithm since a reversible distribution $\pi$ is also a stationary distribution $\pi'P=\pi'$. This condition holds by the following theorem
 \begin{theorem}
 If a probability distribution $\pi$ is a reversible distribution for a markov chain $ \{X_n\} $, then it is also a stationary distribution.
 \end{theorem}
 
 \begin{proof}
-$ (\pi'P)_j = sum_{i \in S} \pi(i)p(i,j) = \sum_{i \in S} \pi(j)p(j,i) = \pi(j) $ 
+$ (\pi'P)_j = \sum_{i \in S} \pi(i)p(i,j) = \sum_{i \in S} \pi(j)p(j,i) = \pi(j) $ 
 \end{proof}
 \noindent If this distribution was unique than we are certain to correctly generate the data accordingly to the target distribution. The stationary distibution is unique if the transition matrix is primitive as stated by the follwing theorem.
 \begin{theorem}
-Let $\{X_n\}$ be a markov chain with a primitive (i.e primitive and aperiodic) transition matrix on a finite set, then  there exist only one stationary distribution and it as also the limit distribution $\lim_{x \to \infty} p^n(i,j) = \pi(j)\,  \forall i \in S$
+Let $\{X_n\}$ be a markov chain with a primitive (i.e. irreducible and aperiodic) transition matrix on a finite set, then  there exist only one stationary distribution and it as also the limit distribution $\lim_{n \to \infty} p^n(i,j) = \pi(j)\,  \forall i \in S$
 \end{theorem}
-\noindent Since $P$ is primitive is enough to compute the limit distribution to find the stationay distribution. \\
-The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution.Therefor to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations. \\
+\noindent Since $P$ is primitive, it is enough to compute the limit distribution to find the unique stationary distribution. \\
+The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution. Therefore to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations. \\
 \section{Genetic Algotirthm}
-Genetic algorithms are a widespread class of algotirhms that mimic nature. Indeed there are three fundamental operations they perform, each operation is inspired by the theory of evolution by Darwin. Among a specie evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles.
-As random mutations can occur in nature but they are not so likely to accur, the algorithms swaps two nodes (cities) with a fixed and low probability.
+Genetic algorithms are a widespread class of algotirhms that mimic nature. Indeed there are three fundamental operations they perform to generate new states (hamiltonian cycles in our case), each operation is inspired by the theory of evolution by C. Darwin. \\
+Among a specie, evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. \\
+The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles. \\
+As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. \\
 My own implementation of the algorithms performs the selection operation as follows:
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{selection}{\textbf{population},n\_paths}
-        \State $n\_parents \leftarrow$ unif[2,n\_paths/2]
+        \State n\_parents $\leftarrow$ unif[2,n\_paths/2]
         \State order the population by fitness
-        \State \textbf{fittest\_subpopulation} $\leftarrow$ extract $n\_parents$ in order from the sorted population
+        \State \textbf{fittest\_subpopulation} $\leftarrow$ extract n\_parents in order from the sorted population
         \State return \textbf{fittest\_subpopulation}
        \EndFunction
 \end{algorithmic}
 \end{algorithm}
-\noindent where \textbf{population} is an array of hamiltonian cycles
+\noindent where \textbf{population} is an array of hamiltonian cycles.
 
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -209,20 +217,20 @@ My own implementation of the algorithms performs the selection operation as foll
        \EndFunction
 \end{algorithmic}
 \end{algorithm}
-2) Crossbreeding --> obtain new hamiltonian cycles exchanging the gines of the parents
-3) Mutation --> exchange genes randomly
+
+
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{mutate}{\textbf{new\_population}, p}
+      \For {path in \textbf{new\_population}}
         \State test $\leftarrow$ unif[0,1]
         \If {test $<$ p}
-        	\State choose position1 randomly among unif([0,length of cycles-1)
-  			\State choose position2 randomly among unif([0,length of cycles-1)
+        	\State choose position1 randomly among unif[0,length of cycles-1)
+  			\State choose position2 randomly among unif[0,length of cycles-1)
   			\State swap the cities in position1 and position2
         \EndIf
-        \State order the population by fitness
-        \State \textbf{fittest\_subpopulation} $\leftarrow$ extract $n\_parents$ in order from the sorted population
-        \State return \textbf{fittest\_subpopulation}
+       \EndFor
+        \State return \textbf{new\_population}
        \EndFunction
 \end{algorithmic}
 \end{algorithm}
