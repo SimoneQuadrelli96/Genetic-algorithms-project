@@ -37,7 +37,7 @@
 	
 	\begin{center}
 		\vspace{2 cm}
-		{\Large \textsc{Genetic algorithm Monte Carlo} }
+		{\Large \textsc{Nature-inspired Monte Carlo optimization} }
 	\end{center}
 
 	\par
@@ -59,7 +59,11 @@
 \pagenumbering{arabic}
 
 \section*{Abstract}
-The aim of this project is to solve the travelling salesman problem (TSP) which consists in finding the shortest cycle among all the cities. The problem is a \textit{NP-hard} problem and therefore there exist no feasible algorithm to solve if for any possible set of cities in input. The appromximately optimal solution was computed by the simulated annealing, while the possible cycles are produced by a genetic algorithm.
+The aim of this project is to solve the travelling salesman problem (TSP) which consists in finding the shortest hamiltonian cycle among all the cities.\\
+The problem is a \textit{NP-hard} problem and therefore there exist no feasible algorithm to solve exactly for any possible set of cities in input. The appromximatively optimal solution was computed by the simulated annealing, while the possible cycles are produced by a genetic algorithm.\\
+The report shows the result of the simulations computed on some cities of northern italy and compares the exact feasible solutions with the approximated ones.
+
+\newpage
 
 \section{Introduction}
 The travelling salesman problem (TSP) consists in finding the shortest route a travelling salesman has to take to visit all the city only once and to return to the starting point. The route described is called \textit{hamiltonian cycle} in graph theory (i.e. a cycle that pass through each vertex of a graph just once), indeed the oldest and more technical formulation of the problem was proposed by Hamilton. \\
@@ -76,16 +80,14 @@ More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least
 \noindent Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximatively. The technique I used to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the shortest hamiltonian cycle is done by the \textit{simulated annealing} algorithm.
 
 \section{Simulated annealing}
-Simulated annealing (SA) is a technique that mimic the behaviour of heated materials slowly cooled down in metallurgy, this process decreases the impurity and increases the size of the crystals meaning that allows materials to reach the state that minimizes the energy. It is a technique to proximate the global optimal solution when the solutions is to be searched in an enormous space. SA is a metaheuristic meaning that it is not a probelm specific stochastic heuristic and that can be used to reduce the search space of an algorithm, the genetic algorithm in our case.\\
-SA very usefull since it does not require any prior information, indeed it just supposes that states (hamiltonian cycles in our case) are distributed accordingly to the Bolzmann distribution:
+Simulated annealing (SA) is a technique that mimic the behaviour of heated materials slowly cooled down in metallurgy, this process decreases the impurity and increases the size of the crystals meaning that allows materials to reach the state that minimizes the energy. It is a technique to approximate the global optimal solution when the solutions is to be searched in an enormous space. SA is a metaheuristic meaning that it is not a probelm-specific stochastic heuristic. As every metaheuristic algorithm it relies on two principles \textit{intensitification} and \textit{diversification}, indeed, the algorithm intensifies the search near different possible optimal solutions.
+SA is very useful since it does not require any prior information, other than the cost, indeed it just supposes that states (hamiltonian cycles in our case) are distributed accordingly to the Bolzmann distribution:
 \begin{equation}
-\exp^{- \beta (cost(state))}
+e^{- \beta (cost(state))}
 \end{equation}
-The underlying assunption of simulated annealing is that the optimal states are the states with the lowest cost, and they are reached as the temperature decreases. The temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore we start with low values of betas (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicing the decrease in temperature.
-The only other information needed is the cost function. For this specific application the cost function is the euclidean distance between the cities. The coordinate of a city $(x,y)$ are expressed in longitude and latitude. Therefore given the coordinates of two cities  $(x_1,y_1)$ and $(x_2,y_2)$
-\begin{equation}
-cost((x_1,y_1),(x_2,y_2)) = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}
-\end{equation}
+The Boltzmann distribution is suitable to model the TSP problem since it is most unbiased distribution among all the possible distributions. The undiasedness derives from the maximization of the Shannon entropy, given the cost. [METTI UNA CITAZIONE]\\
+The underlying assumption of simulated annealing is that the optimal states are the states with the lowest cost, and they are reached as the temperature decreases. The temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore we start with low values of $\beta$ (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicking the decrease in temperature.
+The only other information needed is the cost function. For this specific application the cost function is the sum of euclidean distances between the cities in the cycle. The coordinate of a city $(x,y)$ are expressed in longitude and latitude.\\
 In the following we provide a schematic overview of the simulated annealing implemented.
 
 \begin{algorithm}[H]
@@ -115,7 +117,7 @@ An homogeneous and finite Markov chain with state space $S$, transition matrix $
 \item $\forall n > 0 \, Pr(X_{n+1} = j | X_n = i) = p(i,j) $
 \end{enumerate}
 Metropolis algorithm is designed in such a way that it is very likely to move from a state with lower probability from a state with higher probability. \\
-The following algorithm describes the metropolis algorithm when the target distribution is $\pi(\text{state}) = \exp^{- \beta \, \text{cost(state)}}$ and $S$ is the set of all possible hamiltonian cycles having fixed their length. In the following we suppose to have generated two hamiltonian cycles (i.e states) old\_state, new\_state and we want to understand if new\_state can come from $\pi$. If new\_state is likely to be a sample of $\pi$ we use it as new state otherwise we keep old\_state as the current state.
+The following algorithm describes the metropolis algorithm when the target distribution is $\pi(\text{state}) = e^{- \beta \, \text{cost(state)}}$ and $S$ is the set of all possible hamiltonian cycles having fixed their length. In the following we suppose to have generated two hamiltonian cycles (i.e states) old\_state, new\_state and we want to understand if new\_state can come from $\pi$. If new\_state is likely to be a sample of $\pi$ we use it as new state otherwise we keep old\_state as the current state.
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{metropolis}{old\_state, new\_state, $\beta$}
@@ -123,7 +125,7 @@ The following algorithm describes the metropolis algorithm when the target distr
       	\State return new\_state
       	\EndIf
         \State threshold $\leftarrow$ unif[0,1]
-        \State p  $\leftarrow min\{1,\exp^{- \beta (\text{cost(new\_state}) - \text{cost(old\_state}))} \}$ 
+        \State p  $\leftarrow min\{1,e^{- \beta (\text{cost(new\_state}) - \text{cost(old\_state}))} \}$ 
         \If {p $>$ threshold}
         	\State return new\_state
         \Else
@@ -165,11 +167,12 @@ Let $\{X_n\}$ be a markov chain with a primitive (i.e. irreducible and aperiodic
 \end{theorem}
 \noindent Since $P$ is primitive, it is enough to compute the limit distribution to find the unique stationary distribution. \\
 The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution. Therefore to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations. \\
+METTI CITAZIONE LIBRO
 \section{Genetic Algotirthm}
-Genetic algorithms are a widespread class of algotirhms that mimic nature. Indeed there are three fundamental operations they perform to generate new states (hamiltonian cycles in our case), each operation is inspired by the theory of evolution by C. Darwin. \\
+Genetic algorithms are a widespread clarclengthss of algorithms that mimic nature. Indeed there are three fundamental operations they perform to generate new states (hamiltonian cycles in our case), each operation is inspired by the theory of evolution by C. Darwin. \\
 Among a specie, evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. \\
 The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles. \\
-As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. \\
+As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. The mutation probability should be low since otherwise if can disrupt the optimal subsequence of the cycle inherited. \\
 My own implementation of the algorithms performs the selection operation as follows:
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -255,14 +258,7 @@ My own implementation of the algorithms performs the selection operation as foll
 Oliver Catoni
 \textit{Simulated annealing algorithms and Markov chains with rare transitions}, Séminaire de probabilités (Strasbourg), tome 33 (1999), p. 69-119.
 
-
-\bibitem{reducing dimesionality} 
-G. E. Hinton and R.R. Salakhutdinov, 
-\textit{Reducing the Dimensionality of Data with Neural Networks}. 
-Science, 29 July 2006, Vol 313, 504-507.
  
-
-
 \end{thebibliography}
 
 \end{document}
