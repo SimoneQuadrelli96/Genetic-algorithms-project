@@ -62,7 +62,7 @@ The problem is a \textit{NP-hard} problem and therefore there exist no feasible 
 The report shows the result of the simulations computed on some cities of northern italy and compares the exact feasible solutions with the approximated ones.
 \section{Introduction}
 The travelling salesman problem (TSP) consists in finding the shortest route a travelling salesman has to take to visit all the city only once and to return to the starting point. The route described is called \textit{hamiltonian cycle} in graph theory (i.e. a cycle that pass through each vertex of a graph just once), indeed the oldest and more technical formulation of the problem was proposed by Hamilton. \\
-An algorithm that provides a solution to the travelling salesman problem can be exploited in a wide variety of applications: indeed it can be used in logistics to optimize the path of vehicles and therefore to reduce costs.
+An algorithm that provides a solution to the travelling salesman problem can be exploited in a wide variety of applications: indeed it can be used in logistics to optimize the path of vehicles and therefore to reduce costs. The solutions that exploit euclidean distances can can easily be applied to schedule drones shipping in cities without too high skyscarpers and buildings.
 It is possible to model the problem usign an undirected, weighted and fully connected graph \footnote{For an hamiltinian cycle to exist the graph must be at least connected} $G = (N,E)$, where $N$ is the set of the cities to visit and $E =  N \times N$ is the weight of the path. In this particular instance of the problem the weights correspond to the euclidean distance between each couple of cities.
 Formally, an hamiltonian cycle can be defined as a sequence $(n_0, .., n_{k-1})$ of length k such that $n_i \neq n_j \; \forall i,j \in \{1,..., |N|\}$. \\
 \subsection{Hardness of the travelling salesman problem}
@@ -105,9 +105,11 @@ The breeding of the fittest individuals produces new individuals that inherits t
 As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. The mutation probability should be low since otherwise if can disrupt the optimal subsequence of the cycle inherited. \\
 
 \section{Application} 
+We want to apply the algorithm to find the best cycle among some cities of northern Italy.
 In this section we first provide the reader with the application of the previous methodologies to the problem. 
 
 \subsection{Simulated annealing}
+Simulated annealing depends on the parameter $\beta$, in our specific simulatipo $\beta$ assumes values of the set \{1,2,3,...,39\}.
 The temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore we start with low values of $\beta$ (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicking the decrease in temperature.
 The only other information needed is the cost function. For this specific application the cost function is the sum of euclidean distances between the cities in the cycle. The coordinate of a city $(x,y)$ are expressed in longitude and latitude.\\
 In the following we provide a schematic overview of the simulated annealing implemented.
@@ -262,7 +264,7 @@ We provide an schematic description of the simulation run.
 
 \noindent To be able to control and modify the code as i wish, all the algorithm described were implemented from scratch exploiting just some support libraries as \textit{numpy}, \textit{pyplot}, etc.
 \section{Results}
-
+In this section we compare the Simulated annealing with the exact algorithm to solve the TSP problem. As expected the computational time required to compute an exact solutions becomes too big as the length of the cycles increases. It is more efficient that the simulated annealing for small length of the cycles, since it perform faster and fewer operations. On the coutrary, the execution time of the SImulated Annealing is almost independent from the length of the cycles. The slight variations and the peaks in the plot may be dued to the scheduling of the operating system and its scheduler and the multithreading.
 \begin{figure}[H]
 \begin{adjustwidth}{-4em}{-4em}
 
@@ -277,15 +279,16 @@ We provide an schematic description of the simulation run.
      \caption{Comparison}
     \end{adjustwidth}
    \end{figure}
-   
-
+\noindent As the plot above shows, simulated annealing is capable of finding optimal or slightly suboptimal solutions. However, it is reasonable to expect that as the length of the cycles increases the optimal solutions of the simulated annealing gets further away from the very best optimal solution.\\
+In the following we also plotted the shortest cycle computed by the simulated annealing when using all the possible cities. As starting point i choose provicial capital nearest to my home.
 \begin{figure}[H]
 \includegraphics[scale=1]{../path.pdf} 
 \centering
-\caption{Cost comparison}
+\caption{Optimal cycle starting from Varese}
 \end{figure}
 
 \section{Conclusion}
+Overall the simulated annealing and the genetic algorithm seem to have quite good performances indeed they are able to select the very optimal cycle while keeping the execution time very low. Moreover, the execution time exhibits almos a constant behaviour.
 
 \begin{thebibliography}{9}
 
@@ -301,7 +304,7 @@ Marius Iosifescu
 Heinrich Braun
 \textit{On solving the travelling salesman problems by genetic algoritms}
 
-\bibitem{gaBraun}
+\bibitem{gareview}
 P. LARRAÑAGA, C.M.H. KUIJPERS, R.H. MURGA, I. INZA and S. DIZDAREVIC
 \textit{Genetic Algorithms for the Travelling Salesman Problem: A Review of Representations and Operators}, Artificial Intelligence Review 13: 129–170, 1999.
 
