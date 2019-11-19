@@ -57,14 +57,9 @@
 \newpage
 
 \pagenumbering{arabic}
-
-\section*{Abstract}
-The aim of this project is to solve the travelling salesman problem (TSP) which consists in finding the shortest hamiltonian cycle among all the cities.\\
+\noindent \textbf{Abstract}. The aim of this project is to solve the travelling salesman problem (TSP) which consists in finding the shortest hamiltonian cycle among all the cities.\\
 The problem is a \textit{NP-hard} problem and therefore there exist no feasible algorithm to solve exactly for any possible set of cities in input. The appromximatively optimal solution was computed by the simulated annealing, while the possible cycles are produced by a genetic algorithm.\\
 The report shows the result of the simulations computed on some cities of northern italy and compares the exact feasible solutions with the approximated ones.
-
-\newpage
-
 \section{Introduction}
 The travelling salesman problem (TSP) consists in finding the shortest route a travelling salesman has to take to visit all the city only once and to return to the starting point. The route described is called \textit{hamiltonian cycle} in graph theory (i.e. a cycle that pass through each vertex of a graph just once), indeed the oldest and more technical formulation of the problem was proposed by Hamilton. \\
 An algorithm that provides a solution to the travelling salesman problem can be exploited in a wide variety of applications: indeed it can be used in logistics to optimize the path of vehicles and therefore to reduce costs.
@@ -79,14 +74,41 @@ More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least
 \end{figure}
 \noindent Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximatively. The technique I used to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the shortest hamiltonian cycle is done by the \textit{simulated annealing} algorithm.
 
-\section{Simulated annealing}
+\section{Literature review}
+
+\section{Methodology used}
+In this section we provide a brief overview of all the techniques and aglorithms exploited. They are: Simualted Annealing, Metropolis algorithm and Genetic algorithm.
+
+\subsection{Simulated annealing}
 Simulated annealing (SA) is a technique that mimic the behaviour of heated materials slowly cooled down in metallurgy, this process decreases the impurity and increases the size of the crystals meaning that allows materials to reach the state that minimizes the energy. It is a technique to approximate the global optimal solution when the solutions is to be searched in an enormous space. SA is a metaheuristic meaning that it is not a probelm-specific stochastic heuristic. As every metaheuristic algorithm it relies on two principles \textit{intensitification} and \textit{diversification}, indeed, the algorithm intensifies the search near different possible optimal solutions.
 SA is very useful since it does not require any prior information, other than the cost, indeed it just supposes that states (hamiltonian cycles in our case) are distributed accordingly to the Bolzmann distribution:
 \begin{equation}
 e^{- \beta (cost(state))}
 \end{equation}
 The Boltzmann distribution is suitable to model the TSP problem since it is most unbiased distribution among all the possible distributions. The undiasedness derives from the maximization of the Shannon entropy, given the cost. [METTI UNA CITAZIONE]\\
-The underlying assumption of simulated annealing is that the optimal states are the states with the lowest cost, and they are reached as the temperature decreases. The temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore we start with low values of $\beta$ (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicking the decrease in temperature.
+The underlying assumption of simulated annealing is that the optimal states are the states with the lowest cost, and they are reached as the temperature decreases.
+
+\subsection{Metropolis algorithm}
+Metropolis is a Markov Chain Monte Carlo (MCMC) algorithm used to generate values $X_n$ from a finite set of values $S$ accordingly to a target probability distribution $\pi$.  \\
+An homogeneous and finite Markov chain with state space $S$, transition matrix $P$ and initial distribution $\mu$ is a sequence of random variables $\{ X_n \}_{n \in N}$ such that
+\begin{enumerate}
+\item $\forall i \in S \, Pr(X_0=i)= \mu(i)$ 
+\item $\forall n > 0 \; \forall i_n,...,i_0 \,  Pr(X_{n+1} = j | X_n = i_n,..., X_0=i_0) = Pr(X_{n+1} = j | X_n = i)$
+\item $\forall n > 0 \, Pr(X_{n+1} = j | X_n = i) = p(i,j) $
+\end{enumerate}
+Metropolis algorithm is designed in such a way that it is very likely to move from a state with lower probability from a state with higher probability. \\
+
+\subsection{Genetic algorithm}
+Genetic algorithms are a widespread clarclengthss of algorithms that mimic nature. Indeed there are three fundamental operations they perform to generate new states (hamiltonian cycles in our case), each operation is inspired by the theory of evolution by C. Darwin. \\
+Among a specie, evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. \\
+The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles. \\
+As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. The mutation probability should be low since otherwise if can disrupt the optimal subsequence of the cycle inherited. \\
+
+\section{Application} 
+In this section we first provide the reader with the application of the previous methodologies to the problem. 
+
+\subsection{Simulated annealing}
+The temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore we start with low values of $\beta$ (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicking the decrease in temperature.
 The only other information needed is the cost function. For this specific application the cost function is the sum of euclidean distances between the cities in the cycle. The coordinate of a city $(x,y)$ are expressed in longitude and latitude.\\
 In the following we provide a schematic overview of the simulated annealing implemented.
 
@@ -108,16 +130,10 @@ In the following we provide a schematic overview of the simulated annealing impl
 \noindent where \textbf{betas} is a set of the values of $\beta$. \\ 
 The code executes all the procedures using a vectorial implementation to speed up the computation.
 
-\section{Metropolis algorithm}
-Metropolis is a Markov Chain Monte Carlo (MCMC) algorithm used to generate values $X_n$ from a finite set of values $S$ accordingly to a target probability distribution $\pi$.  \\
-An homogeneous and finite Markov chain with state space $S$, transition matrix $P$ and initial distribution $\mu$ is a sequence of random variables $\{ X_n \}_{n \in N}$ such that
-\begin{enumerate}
-\item $\forall i \in S \, Pr(X_0=i)= \mu(i)$ 
-\item $\forall n > 0 \; \forall i_n,...,i_0 \,  Pr(X_{n+1} = j | X_n = i_n,..., X_0=i_0) = Pr(X_{n+1} = j | X_n = i)$
-\item $\forall n > 0 \, Pr(X_{n+1} = j | X_n = i) = p(i,j) $
-\end{enumerate}
-Metropolis algorithm is designed in such a way that it is very likely to move from a state with lower probability from a state with higher probability. \\
+\subsection{Metropolis algorithm}
+
 The following algorithm describes the metropolis algorithm when the target distribution is $\pi(\text{state}) = e^{- \beta \, \text{cost(state)}}$ and $S$ is the set of all possible hamiltonian cycles having fixed their length. In the following we suppose to have generated two hamiltonian cycles (i.e states) old\_state, new\_state and we want to understand if new\_state can come from $\pi$. If new\_state is likely to be a sample of $\pi$ we use it as new state otherwise we keep old\_state as the current state.
+
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{metropolis}{old\_state, new\_state, $\beta$}
@@ -135,7 +151,7 @@ The following algorithm describes the metropolis algorithm when the target distr
 \end{algorithmic}
 \end{algorithm}
 \noindent
-\subsection{Properties of metropolis algorithm}
+\subsubsection{Properties of metropolis algorithm}
 We can model the generation of new hamiltonian cycles using a undirected and connected graph $G = (S,E)$ whose set of states $S$ contains all the possible hamiltonian cycles and $E$ contains the transition probability from an hamiltonian cycle to another one. Given the graph, we can define the transition matrix $P=p(i,j)]_{i,j\in S}$ as
 \begin{equation}
 p(i,j) =  \begin{cases} 
@@ -169,11 +185,7 @@ Let $\{X_n\}$ be a markov chain with a primitive (i.e. irreducible and aperiodic
 The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution. Therefore to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations. \\
 METTI CITAZIONE LIBRO
 \section{Genetic Algotirthm}
-Genetic algorithms are a widespread clarclengthss of algorithms that mimic nature. Indeed there are three fundamental operations they perform to generate new states (hamiltonian cycles in our case), each operation is inspired by the theory of evolution by C. Darwin. \\
-Among a specie, evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. \\
-The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles. \\
-As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. The mutation probability should be low since otherwise if can disrupt the optimal subsequence of the cycle inherited. \\
-My own implementation of the algorithms performs the selection operation as follows:
+There are many possible implementations of the basic operations performed by a genetic algorithm. In this section i provide the algorithmical description of my own implementation.
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{selection}{\textbf{population},n\_paths}
@@ -186,40 +198,6 @@ My own implementation of the algorithms performs the selection operation as foll
 \end{algorithm}
 \noindent where \textbf{population} is an array of hamiltonian cycles.
 
-\begin{algorithm}[H]
-    \begin{algorithmic}[1]
-      \Function{crossbreeding}{\textbf{fittest\_subpopulation}}
-      	\For {i in 1, ..., n\_paths}
-  			\State choose parent1 uniformely among the \textbf{fittest\_subpopulation}
-  			\State Choose parent2 uniformely among the \textbf{fittest\_subpopulation}
-  			\If {parent1 different from parent2}
-  				\State choose position1 randomly among unif([0,length of cycles-1)
-  				\State choose position2 randomly among unif([0,length of cycles-1)
-  				\State divide parent1 in three sections: 
-  				\State[parent10:position1] 
-  				\State parent1[position1:position2]
-  				\State parent1[posotion2:]
-  				\State divide parent2 in three sections:
-  				\State parent2[0:position1] 
-  				\State parent2[position1:position2]
-  				\State parent2[posotion2:]
-  				\State breed child1 justapposing in the order:
-  				\State parent1[0:position1]
-  				\State all the cities not in  parent1[0:position1] and not in parent2[posotion2:]
-  				\State parent2[posotion2:]
-  				\State breed child2 justapposing in the order:
-  				\State parent2[0:position1]
-  				\State all the cities not in  parent2[0:position1] and not in parent1[posotion2:]
-  				\State parent1[posotion2:]
-  			\Else
-  				\State child1 $\leftarrow$ parent1
-  				\State child2 $\leftarrow$ parent1
-  			\EndIf
-      	\EndFor
-        \State \textbf{new\_population} is a vector of the children 
-       \EndFunction
-\end{algorithmic}
-\end{algorithm}
 
 
 \begin{algorithm}[H]
@@ -248,9 +226,46 @@ My own implementation of the algorithms performs the selection operation as foll
        \EndFunction
 \end{algorithmic}
 \end{algorithm}
-\section{dataset}
 
-\section{results}
+\subsection{Data used}
+To test the effectiveness and the precision of the method i used as set of cities some cities of northern Italy. \\
+METTI LE CITTA
+\\
+
+\subsection{Software used}
+The objective of this simulation is to show compare the optimal solutions of the TSP computed by the appromated algorithm and by the exact algorithm. The exact solution of the TSP is not feasible when the number of cities grows too much therefore we compute exact solutions as long as it is feasible. \\
+We provide an schematic description of the simulation run. 
+\begin{algorithm}[H]
+    \begin{algorithmic}[1]
+      \Function{Simulation}{all\_cities}
+       \For {i in 1,..., n\_cities}
+       	\State  cities $\leftarrow$ all\_cities[0:i]
+       	\For {for all threads}
+       		\State run simluted annealing in parallel
+       	\EndFor 
+       	\State extract the best solution among the solutions computed by the threads
+       	\If{i < feasibility\_threshold}
+       		\State compute the exact solution
+       	\EndIf
+       	\State compare the results by plotting them
+       \EndFor
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\noindent In this section we provide the python code that runs the simulation\\
+METTICI VERSIONE FINALE
+\\
+\begin{figure}[H]
+\includegraphics[scale=0.5]{simulation.png} 
+\centering
+\caption{Python code of the simulation}
+\end{figure}
+
+\noindent To be able to control and modify the code as i wish, all the algorithm described were implemented from scratch exploiting just some support libraries as \textit{numpy}, \textit{pyplot}, etc.
+\section{Results}
+
+\section{Conclusion}
 
 \begin{thebibliography}{9}
 

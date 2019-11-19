@@ -1,0 +1,34 @@
+\begin{algorithm}[H]
+    \begin{algorithmic}[1]
+      \Function{crossbreeding}{\textbf{fittest\_subpopulation}}
+      	\For {i in 1, ..., n\_paths}
+  			\State choose parent1 uniformely among the \textbf{fittest\_subpopulation}
+  			\State Choose parent2 uniformely among the \textbf{fittest\_subpopulation}
+  			\If {parent1 different from parent2}
+  				\State choose position1 randomly among unif([0,length of cycles-1)
+  				\State choose position2 randomly among unif([0,length of cycles-1)
+  				\State divide parent1 in three sections: 
+  				\State[parent10:position1] 
+  				\State parent1[position1:position2]
+  				\State parent1[posotion2:]
+  				\State divide parent2 in three sections:
+  				\State parent2[0:position1] 
+  				\State parent2[position1:position2]
+  				\State parent2[posotion2:]
+  				\State breed child1 justapposing in the order:
+  				\State parent1[0:position1]
+  				\State all the cities not in  parent1[0:position1] and not in parent2[posotion2:]
+  				\State parent2[posotion2:]
+  				\State breed child2 justapposing in the order:
+  				\State parent2[0:position1]
+  				\State all the cities not in  parent2[0:position1] and not in parent1[posotion2:]
+  				\State parent1[posotion2:]
+  			\Else
+  				\State child1 $\leftarrow$ parent1
+  				\State child2 $\leftarrow$ parent1
+  			\EndIf
+      	\EndFor
+        \State \textbf{new\_population} is a vector of the children 
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
