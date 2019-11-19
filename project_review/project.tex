@@ -182,8 +182,7 @@ $ (\pi'P)_j = \sum_{i \in S} \pi(i)p(i,j) = \sum_{i \in S} \pi(j)p(j,i) = \pi(j)
 Let $\{X_n\}$ be a markov chain with a primitive (i.e. irreducible and aperiodic) transition matrix on a finite set, then  there exist only one stationary distribution and it as also the limit distribution $\lim_{n \to \infty} p^n(i,j) = \pi(j)\,  \forall i \in S$
 \end{theorem}
 \noindent Since $P$ is primitive, it is enough to compute the limit distribution to find the unique stationary distribution. \\
-The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution. Therefore to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations. \\
-METTI CITAZIONE LIBRO
+The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution. Therefore to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations \cite{mcalgorithm}. \\
 \section{Genetic Algotirthm}
 There are many possible implementations of the basic operations performed by a genetic algorithm. In this section i provide the algorithmical description of my own implementation.
 \begin{algorithm}[H]
@@ -254,7 +253,6 @@ We provide an schematic description of the simulation run.
 \end{algorithm}
 
 \noindent In this section we provide the python code that runs the simulation\\
-METTICI VERSIONE FINALE
 \\
 \begin{figure}[H]
 \includegraphics[scale=0.5]{simulation.png} 
@@ -265,6 +263,28 @@ METTICI VERSIONE FINALE
 \noindent To be able to control and modify the code as i wish, all the algorithm described were implemented from scratch exploiting just some support libraries as \textit{numpy}, \textit{pyplot}, etc.
 \section{Results}
 
+\begin{figure}[H]
+\begin{adjustwidth}{-4em}{-4em}
+
+     \subfloat{%
+       \includegraphics[width=0.60\textwidth]{../Cost_comparison.pdf} 
+     }
+     \hfill
+     \subfloat{%
+       \includegraphics[width=0.60\textwidth]{../Time_comparison.pdf} 
+     }
+     
+     \caption{Comparison}
+    \end{adjustwidth}
+   \end{figure}
+   
+
+\begin{figure}[H]
+\includegraphics[scale=1]{../path.pdf} 
+\centering
+\caption{Cost comparison}
+\end{figure}
+
 \section{Conclusion}
 
 \begin{thebibliography}{9}
@@ -272,6 +292,18 @@ METTICI VERSIONE FINALE
 \bibitem{metropolis}
 Oliver Catoni
 \textit{Simulated annealing algorithms and Markov chains with rare transitions}, Séminaire de probabilités (Strasbourg), tome 33 (1999), p. 69-119.
+
+\bibitem{mcalgorithm}
+Marius Iosifescu
+\textit{Finite markov process and their applications}, John Wiley \& Sons, 1980.
+
+\bibitem{gaBraun}
+Heinrich Braun
+\textit{On solving the travelling salesman problems by genetic algoritms}
+
+\bibitem{gaBraun}
+P. LARRAÑAGA, C.M.H. KUIJPERS, R.H. MURGA, I. INZA and S. DIZDAREVIC
+\textit{Genetic Algorithms for the Travelling Salesman Problem: A Review of Representations and Operators}, Artificial Intelligence Review 13: 129–170, 1999.
 
  
 \end{thebibliography}
