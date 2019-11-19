@@ -69,14 +69,15 @@ Formally, an hamiltonian cycle can be defined as a sequence $(n_0, .., n_{k-1})$
 Solving the travelling salesman problem pose very tricky computational problems. Indeed, the most intuitive solution to the problem consist in computing all the possible paths and then evaluate all their lengths to find the shortest. But the number of possible cycles is $(n-1)!$ and grows faster that $2^n$ (i.e. $2^n = o(n!)$) and thus the problem cannot be solved in finite time for large $n$. Morover, even if it was possible to generate each hamiltonian cycle in constant time independently from their length, the algorithm will have an exponential time complexity to find the best result.  \\
 More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least as hard as the hardest NP-complete problem. \textit{NP-complete} problems are problems that can be solved in polynomial time by a non-deterministic algorithm. For such a class of problem there exists no polynomial algorithm that can solve the problems and may not exist, still noone was able to prove that such algorithms does not exists.
 \begin{figure}[H]
-\includegraphics[scale=1]{complexity_classes.png} 
+\includegraphics[scale=0.25]{complexity_classes.png} 
 \centering
+\caption{Complexity schema}
 \end{figure}
 \noindent Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximatively. The technique I used to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the shortest hamiltonian cycle is done by the \textit{simulated annealing} algorithm.
 
 \section{Literature review}
 
-\section{Methodology used}
+\section{Algorithms and techniques}
 In this section we provide a brief overview of all the techniques and aglorithms exploited. They are: Simualted Annealing, Metropolis algorithm and Genetic algorithm.
 
 \subsection{Simulated annealing}
@@ -87,30 +88,7 @@ e^{- \beta (cost(state))}
 \end{equation}
 The Boltzmann distribution is suitable to model the TSP problem since it is most unbiased distribution among all the possible distributions. The undiasedness derives from the maximization of the Shannon entropy, given the cost. [METTI UNA CITAZIONE]\\
 The underlying assumption of simulated annealing is that the optimal states are the states with the lowest cost, and they are reached as the temperature decreases.
-
-\subsection{Metropolis algorithm}
-Metropolis is a Markov Chain Monte Carlo (MCMC) algorithm used to generate values $X_n$ from a finite set of values $S$ accordingly to a target probability distribution $\pi$.  \\
-An homogeneous and finite Markov chain with state space $S$, transition matrix $P$ and initial distribution $\mu$ is a sequence of random variables $\{ X_n \}_{n \in N}$ such that
-\begin{enumerate}
-\item $\forall i \in S \, Pr(X_0=i)= \mu(i)$ 
-\item $\forall n > 0 \; \forall i_n,...,i_0 \,  Pr(X_{n+1} = j | X_n = i_n,..., X_0=i_0) = Pr(X_{n+1} = j | X_n = i)$
-\item $\forall n > 0 \, Pr(X_{n+1} = j | X_n = i) = p(i,j) $
-\end{enumerate}
-Metropolis algorithm is designed in such a way that it is very likely to move from a state with lower probability from a state with higher probability. \\
-
-\subsection{Genetic algorithm}
-Genetic algorithms are a widespread clarclengthss of algorithms that mimic nature. Indeed there are three fundamental operations they perform to generate new states (hamiltonian cycles in our case), each operation is inspired by the theory of evolution by C. Darwin. \\
-Among a specie, evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. \\
-The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles. \\
-As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. The mutation probability should be low since otherwise if can disrupt the optimal subsequence of the cycle inherited. \\
-
-\section{Application} 
-We want to apply the algorithm to find the best cycle among some cities of northern Italy.
-In this section we first provide the reader with the application of the previous methodologies to the problem. 
-
-\subsection{Simulated annealing}
-Simulated annealing depends on the parameter $\beta$, in our specific simulatipo $\beta$ assumes values of the set \{1,2,3,...,39\}.
-The temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore we start with low values of $\beta$ (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicking the decrease in temperature.
+he temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore we start with low values of $\beta$ (high temperature) and as the simulation proceeds we increase the values of $\beta$, thus mimicking the decrease in temperature.
 The only other information needed is the cost function. For this specific application the cost function is the sum of euclidean distances between the cities in the cycle. The coordinate of a city $(x,y)$ are expressed in longitude and latitude.\\
 In the following we provide a schematic overview of the simulated annealing implemented.
 
@@ -133,7 +111,14 @@ In the following we provide a schematic overview of the simulated annealing impl
 The code executes all the procedures using a vectorial implementation to speed up the computation.
 
 \subsection{Metropolis algorithm}
-
+Metropolis is a Markov Chain Monte Carlo (MCMC) algorithm used to generate values $X_n$ from a finite set of values $S$ accordingly to a target probability distribution $\pi$.  \\
+An homogeneous and finite Markov chain with state space $S$, transition matrix $P$ and initial distribution $\mu$ is a sequence of random variables $\{ X_n \}_{n \in N}$ such that
+\begin{enumerate}
+\item $\forall i \in S \, Pr(X_0=i)= \mu(i)$ 
+\item $\forall n > 0 \; \forall i_n,...,i_0 \,  Pr(X_{n+1} = j | X_n = i_n,..., X_0=i_0) = Pr(X_{n+1} = j | X_n = i)$
+\item $\forall n > 0 \, Pr(X_{n+1} = j | X_n = i) = p(i,j) $
+\end{enumerate}
+Metropolis algorithm is designed in such a way that it is very likely to move from a state with lower probability from a state with higher probability. \\
 The following algorithm describes the metropolis algorithm when the target distribution is $\pi(\text{state}) = e^{- \beta \, \text{cost(state)}}$ and $S$ is the set of all possible hamiltonian cycles having fixed their length. In the following we suppose to have generated two hamiltonian cycles (i.e states) old\_state, new\_state and we want to understand if new\_state can come from $\pi$. If new\_state is likely to be a sample of $\pi$ we use it as new state otherwise we keep old\_state as the current state.
 
 \begin{algorithm}[H]
@@ -185,7 +170,12 @@ Let $\{X_n\}$ be a markov chain with a primitive (i.e. irreducible and aperiodic
 \end{theorem}
 \noindent Since $P$ is primitive, it is enough to compute the limit distribution to find the unique stationary distribution. \\
 The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution. Therefore to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations \cite{mcalgorithm}. \\
-\section{Genetic Algotirthm}
+
+\subsection{Genetic algorithm}
+Genetic algorithms are a widespread clarclengthss of algorithms that mimic nature. Indeed there are three fundamental operations they perform to generate new states (hamiltonian cycles in our case), each operation is inspired by the theory of evolution by C. Darwin. \\
+Among a specie, evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. \\
+The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles. \\
+As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. The mutation probability should be low since otherwise if can disrupt the optimal subsequence of the cycle inherited. \\
 There are many possible implementations of the basic operations performed by a genetic algorithm. In this section i provide the algorithmical description of my own implementation.
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -199,6 +189,11 @@ There are many possible implementations of the basic operations performed by a g
 \end{algorithm}
 \noindent where \textbf{population} is an array of hamiltonian cycles.
 
+
+\begin{figure}[H]\includegraphics[scale=0.5]{crossbreeding.png} 
+\centering
+\caption{Crossbreeding schema}
+\end{figure}
 
 
 \begin{algorithm}[H]
@@ -228,10 +223,9 @@ There are many possible implementations of the basic operations performed by a g
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Data used}
-To test the effectiveness and the precision of the method i used as set of cities some cities of northern Italy. \\
-METTI LE CITTA
-\\
+\section{Application} 
+We want to apply the algorithm to find the best cycle among some cities of northern Italy.
+In this section we first provide the reader with the application of the previous methodologies to the problem. 
 
 \subsection{Software used}
 The objective of this simulation is to show compare the optimal solutions of the TSP computed by the appromated algorithm and by the exact algorithm. The exact solution of the TSP is not feasible when the number of cities grows too much therefore we compute exact solutions as long as it is feasible. \\
@@ -263,6 +257,7 @@ We provide an schematic description of the simulation run.
 \end{figure}
 
 \noindent To be able to control and modify the code as i wish, all the algorithm described were implemented from scratch exploiting just some support libraries as \textit{numpy}, \textit{pyplot}, etc.
+
 \section{Results}
 In this section we compare the Simulated annealing with the exact algorithm to solve the TSP problem. As expected the computational time required to compute an exact solutions becomes too big as the length of the cycles increases. It is more efficient that the simulated annealing for small length of the cycles, since it perform faster and fewer operations. On the coutrary, the execution time of the SImulated Annealing is almost independent from the length of the cycles. The slight variations and the peaks in the plot may be dued to the scheduling of the operating system and its scheduler and the multithreading.
 \begin{figure}[H]
@@ -307,6 +302,9 @@ Heinrich Braun
 \bibitem{gareview}
 P. LARRAÑAGA, C.M.H. KUIJPERS, R.H. MURGA, I. INZA and S. DIZDAREVIC
 \textit{Genetic Algorithms for the Travelling Salesman Problem: A Review of Representations and Operators}, Artificial Intelligence Review 13: 129–170, 1999.
+
+\bibitem{test}
+https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/P\_np\_np-complete\_np-hard.svg/2000px-P\_np\_np-complete\_np-hard.svg.png
 
  
 \end{thebibliography}
