@@ -77,7 +77,7 @@ More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least
 
 \section{Literature review}
 
-\section{Algorithms and techniques}
+\section{Algorithms and techniques} \label{algorithms}
 In this section we provide a brief overview of all the techniques and aglorithms exploited. They are: Simualted Annealing, Metropolis algorithm and Genetic algorithm.
 
 \subsection{Simulated annealing}
@@ -174,9 +174,6 @@ The stationary distribution can be approximated in a logarithmic number of itera
 \subsection{Genetic algorithm}
 Genetic algorithms are a widespread clarclengthss of algorithms that mimic nature. Indeed there are three fundamental operations they perform to generate new states (hamiltonian cycles in our case), each operation is inspired by the theory of evolution by C. Darwin. \\
 Among a specie, evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. \\
-The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles. \\
-As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. The mutation probability should be low since otherwise if can disrupt the optimal subsequence of the cycle inherited. \\
-There are many possible implementations of the basic operations performed by a genetic algorithm. In this section i provide the algorithmical description of my own implementation.
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{selection}{\textbf{population},n\_paths}
@@ -187,13 +184,13 @@ There are many possible implementations of the basic operations performed by a g
        \EndFunction
 \end{algorithmic}
 \end{algorithm}
-\noindent where \textbf{population} is an array of hamiltonian cycles.
-
-
+\noindent The breeding of the fittest individuals produces new individuals that inherits traits from the parents, therefore in the crossbreeding phase we mix some subsection of the fittest hamiltonian cycles. \\
 \begin{figure}[H]\includegraphics[scale=0.5]{crossbreeding.png} 
 \centering
 \caption{Crossbreeding schema}
 \end{figure}
+
+\noindent As random mutations can occur in nature but they are not so likely to occur, the algorithms swaps two cities with a fixed and low probability. The mutation probability should be low since otherwise if can disrupt the optimal subsequence of the cycle inherited. \\
 
 
 \begin{algorithm}[H]
@@ -211,7 +208,7 @@ There are many possible implementations of the basic operations performed by a g
        \EndFunction
 \end{algorithmic}
 \end{algorithm}
-
+\noindent To easily apply all the operations, a function was created.
 
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -223,12 +220,31 @@ There are many possible implementations of the basic operations performed by a g
 \end{algorithmic}
 \end{algorithm}
 
+\noindent There are many possible implementations of the basic operations performed by a genetic algorithm. Therefore I deicde to implement the from scratch.
+
 \section{Application} 
+The project consists in implementing the all the methods described in the section \ref{algorithms}.
 We want to apply the algorithm to find the best cycle among some cities of northern Italy.
 In this section we first provide the reader with the application of the previous methodologies to the problem. 
 
+\subsection{Distance}
+To realistically model the routes that connect important cities in northern Italy euclidean distance is a suitable measure since it approximates well the route of the highways
+METTI UN' IMMAGINE
+
+\subsection{Dataset}
+The dataset consists in some provincial captial of norther Italy: \textit{Varese, Novara, Torino, Genova, Milano, Como, Bergamo, Brescia, Cremona, Lecco, Lodi, Mantova, Monza, Pavia, Sondrio, Verona, Vicenza, Padova, Venezia, Firenze, Pisa}. \\
+The coordinates in terms of latitude and longitude were downloaded using a python library as follows:
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.42]{download_dataset.png} 
+\centering
+\caption{Python code to download the coordinates of the cities}
+\end{figure}
+
 \subsection{Software used}
-The objective of this simulation is to show compare the optimal solutions of the TSP computed by the appromated algorithm and by the exact algorithm. The exact solution of the TSP is not feasible when the number of cities grows too much therefore we compute exact solutions as long as it is feasible. \\
+The objective of this simulation is to show compare the optimal solutions of the TSP computed by the appromated algorithm and by the exact algorithm.
+The exact solution of the TSP is not feasible when the number of cities grows too much therefore we compute exact solutions as long as it is feasible. \\
 We provide an schematic description of the experiement run. 
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -306,8 +322,12 @@ In the following we also plotted the shortest cycle computed by the simulated an
 \caption{Optimal cycle starting from Varese}
 \end{figure}
 
-\section{Conclusion}
-Overall the simulated annealing and the genetic algorithm seem to have quite good performances indeed they are able to select the very optimal cycle while keeping the execution time very low. Moreover, the execution time exhibits almos a constant behaviour.
+ighway\section{Conclusion}
+Overall the simulated annealing and the genetic algorithm seem to have quite good performances. The cost function is almost always increasing and as far as it is possible to compare the simulated annealing finds very optimal cycle while keeping the execution time very low. \\
+As far as execution time is concerned, the length of the cycles seems to have a very limited influnce on the overall execution time, indeed, it exhibits almost a constant behaviour. \\
+As for the optimal cycle computed, for all of the cities the euclidean distance provides a suitable approximation of the routes of the highways present in northern Italy. However, this notion of distance does not take into account the TEMPO DI PERCORRENZA of the highways that can significantly change during the day and may not be correlated to significantly with the length of the highways.
+
+\newpage
 
 \begin{thebibliography}{9}
 
