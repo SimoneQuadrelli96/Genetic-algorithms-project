@@ -229,10 +229,10 @@ In this section we first provide the reader with the application of the previous
 
 \subsection{Software used}
 The objective of this simulation is to show compare the optimal solutions of the TSP computed by the appromated algorithm and by the exact algorithm. The exact solution of the TSP is not feasible when the number of cities grows too much therefore we compute exact solutions as long as it is feasible. \\
-We provide an schematic description of the simulation run. 
+We provide an schematic description of the experiement run. 
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
-      \Function{Simulation}{all\_cities}
+      \Function{Experiment}{all\_cities}
        \For {i in 1,..., n\_cities}
        	\State  cities $\leftarrow$ all\_cities[0:i]
        	\For {for all threads}
@@ -253,8 +253,32 @@ We provide an schematic description of the simulation run.
 \begin{figure}[H]
 \includegraphics[scale=0.5]{simulation.png} 
 \centering
-\caption{Python code of the simulation}
+\caption{Python code of the experiment}
 \end{figure}
+
+\begin{algorithm}[H]
+    \begin{algorithmic}[1]
+      \Function{run\_simulation}{\textbf{betas}, n\_iterations}
+      \State generate a starting population
+       \For {beta in betas}
+       		\For {i in 1,...,n\_iterations}
+       		\State EVOLVE the population
+       		\State obtain the new state by metropolis algorithm
+       	\EndFor 
+       \EndFor
+       \State return the shortest cycle
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.38]{run_simulation.png} 
+\centering
+\caption{Python code of a simulation}
+\end{figure}
+\noindent This method executes the simulated annealing. Indeed, we generate a starting population, we evolve it and accept or reject it with the metropolis algorithm.
 
 \noindent To be able to control and modify the code as i wish, all the algorithm described were implemented from scratch exploiting just some support libraries as \textit{numpy}, \textit{pyplot}, etc.
 

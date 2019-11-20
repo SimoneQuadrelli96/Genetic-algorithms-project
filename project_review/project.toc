@@ -8,5 +8,5 @@
 \contentsline {subsection}{\numberline {3.3}Genetic algorithm}{5}
 \contentsline {section}{\numberline {4}Application}{6}
 \contentsline {subsection}{\numberline {4.1}Software used}{7}
-\contentsline {section}{\numberline {5}Results}{8}
-\contentsline {section}{\numberline {6}Conclusion}{10}
+\contentsline {section}{\numberline {5}Results}{9}
+\contentsline {section}{\numberline {6}Conclusion}{11}
