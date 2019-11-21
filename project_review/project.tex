@@ -57,9 +57,9 @@
 \newpage
 
 \pagenumbering{arabic}
-\noindent \textbf{Abstract}. The aim of this project is to solve the travelling salesman problem (TSP) which consists in finding the shortest hamiltonian cycle among all the cities in a set of cities.\\
-The problem is a \textit{NP-hard} problem and therefore there exist no feasible algorithm to solve it exactly for any possible set of cities in input. Therefore, the project explores the performance obtained by simulated annealing whose states (i.e. cycles) are produced by a genetic algorithm.\\
-The report shows the result of the simulations computed on some cities of northern Italy and compares the exact feasible solutions with the approximated ones.
+\noindent \textbf{Abstract}. The aim of this project is to solve the travelling salesman problem (TSP) which consists in finding the shortest hamiltonian cycle (i.e. cycle that pass through each vertex of a graph just once) among all the vertices of a graph. \\
+The problem is a \textit{NP-hard} problem and therefore there exist no feasible algorithm to solve it exactly for any possible input. Therefore, the project explores the possibility to exploit simulated annealing and a genetic algorithm to compute with adequate approximation the shortest hamiltonian cycle.\\
+The report shows the result of the simulations computed on some cities of northern Italy and compares the exact feasible solutions with the approximated ones. It also provides an analysis of the computational time needed to obtain an exact optimal solution and to obtain an approximately optimal solution.
 \section{Introduction}
 The travelling salesman problem (TSP) consists in finding the shortest route a travelling salesman has to take to visit all the city only once and to return to the starting point. The route described is called \textit{hamiltonian cycle} in graph theory (i.e. a cycle that pass through each vertex of a graph just once), indeed the oldest and more technical formulation of the problem was proposed by Hamilton. \\
 An algorithm that provides a solution to the travelling salesman problem can be exploited in a wide variety of applications: indeed it can be used in logistics to optimize the path of vehicles and therefore to reduce costs. The solutions that exploit euclidean distances can can easily be applied to schedule drones shipping in cities without too high skyscarpers and buildings.
@@ -73,7 +73,7 @@ More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least
 \centering
 \caption{Complexity schema}
 \end{figure}
-\noindent Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximatively. The technique I used to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the shortest hamiltonian cycle is done by the \textit{simulated annealing} algorithm.
+\noindent Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximately. The technique I used to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the shortest hamiltonian cycle is done by the \textit{simulated annealing} algorithm.
 
 \section{Literature review}
 
@@ -169,7 +169,7 @@ $ (\pi'P)_j = \sum_{i \in S} \pi(i)p(i,j) = \sum_{i \in S} \pi(j)p(j,i) = \pi(j)
 Let $\{X_n\}$ be a markov chain with a primitive (i.e. irreducible and aperiodic) transition matrix on a finite set, then  there exist only one stationary distribution and it as also the limit distribution $\lim_{n \to \infty} p^n(i,j) = \pi(j)\,  \forall i \in S$
 \end{theorem}
 \noindent Since $P$ is primitive, it is enough to compute the limit distribution to find the unique stationary distribution. \\
-The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution. Therefore to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations \cite{mcalgorithm}. \\
+The stationary distribution can be approximated in a logarithmic number of iterations starting from any distribution. Therefore to sample hamiltonian cycle from the stationary distribution is enough to let the simulation go on for a suitable number of iterations \cite{mctheory}, \cite{mcalgorithm}. \\
 
 \subsection{Genetic algorithm}
 Genetic algorithms are a widespread clarclengthss of algorithms that mimic nature. Indeed there are three fundamental operations they perform to generate new states (hamiltonian cycles in our case), each operation is inspired by the theory of evolution by C. Darwin. \\
@@ -220,21 +220,26 @@ Among a specie, evolution selects the fittest individuals and therefore the algo
 \end{algorithmic}
 \end{algorithm}
 
-\noindent There are many possible implementations of the basic operations performed by a genetic algorithm. Therefore I deicde to implement the from scratch.
+\noindent There are many possible implementations of the basic operations performed by a genetic algorithm. Therefore I deicde to implement the from scratch. The implementation of those functions is not very interesting and requires many implementative details, therefore we omit it in the present work.
 
 \section{Application} 
-The project consists in implementing the all the methods described in the section \ref{algorithms}.
-We want to apply the algorithm to find the best cycle among some cities of northern Italy.
-In this section we first provide the reader with the application of the previous methodologies to the problem. 
+This section provides the reader with the necessary information about the choice of the distance function, the dataset and the precise algorithmical and python implementation of the key functions.
 
 \subsection{Distance}
-To realistically model the routes that connect important cities in northern Italy euclidean distance is a suitable measure since it approximates well the route of the highways
-METTI UN' IMMAGINE
+The first problem to overcome is to choose an appropriate notion of distance. When the construction of routes faces few natural constraints such as in the Po valley streets are built to minimize the distance between the cities they connect. The easiest way to minimize the distance is to use the euclidean distance since small portions of earth can be considered as a plain. Therefore to realistically model the routes of the highways that connect important cities in northern Italy euclidean distance seems to be a suitable measure. \\
+As can be seen from Figure \ref{autostrade}, the euclidean distance seems to be indeed a good approximation :
+\begin{figure}[H] 
+\includegraphics[scale=0.4]{autostrade.jpg} 
+\centering
+\caption{Scheme of the highways by \textit{Autostrade per l'Italia}\cite{autostrade}} \label{autostrade}
+\end{figure}
+\noindent On the other hand, euclidean distance seems not to connect too well cities in the other italian regions like Tuscany and Emilia-Romagna since the Apennine Mountains prevent to connect the city on the west coast of central italy to cities on the east cost.
+
 
 \subsection{Dataset}
-The dataset consists in some provincial captial of norther Italy: \textit{Varese, Novara, Torino, Genova, Milano, Como, Bergamo, Brescia, Cremona, Lecco, Lodi, Mantova, Monza, Pavia, Sondrio, Verona, Vicenza, Padova, Venezia, Firenze, Pisa}. \\
-The coordinates in terms of latitude and longitude were downloaded using a python library as follows:
-
+Taking into account the constraint fixed by the choice of the distance the dataset used refers to cities in northern Italy: \textit{Varese, Novara, Torino, Milano, Como, Bergamo, Brescia, Cremona, Lecco, Lodi, Mantova, Monza, Pavia, Sondrio, Verona, Vicenza, Padova, Venezia}. \\
+The dataset consists in the coordinates of the cities above in terms of latitude and longitude. Since latitude and longitude is a global scale the cities are very close one another and therefore the cost of the hamiltonian cycles is very low.\\
+The informations were downloaded using the python library \textit{geopy} as follows:
 
 \begin{figure}[H]
 \includegraphics[scale=0.42]{download_dataset.png} 
@@ -243,9 +248,11 @@ The coordinates in terms of latitude and longitude were downloaded using a pytho
 \end{figure}
 
 \subsection{Software used}
-The objective of this simulation is to show compare the optimal solutions of the TSP computed by the appromated algorithm and by the exact algorithm.
-The exact solution of the TSP is not feasible when the number of cities grows too much therefore we compute exact solutions as long as it is feasible. \\
-We provide an schematic description of the experiement run. 
+The objective of this simulation is to show compare the optimal solutions of the TSP computed by the appromated algorithm and the exact solution.
+However, as explained before, the exact solution of the TSP is not feasible when the number of cities grows too much therefore we compute exact solutions just as long as it is computationally feasible. \\
+The algorithm select a growing set of cities each iteration, executes in parallel some predefined number of simulated annealing and select the best solution among the results of the simulated annealings. Then it computes, if feasible, the exact solution. The values are saved at each iteration and then are plotted to easily show the results.\\
+The code was also instrumented to keep track of the execution time of both algorithms.
+The algorithm  below provides a schematic description of the experiement run. 
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
       \Function{Experiment}{all\_cities}
@@ -264,13 +271,14 @@ We provide an schematic description of the experiement run.
 \end{algorithmic}
 \end{algorithm}
 
-\noindent In this section we provide the python code that runs the simulation\\
-\\
+\noindent The following python codes is the implementation of the algorithm described above. In the simulation run the starting and ending city is \textit{Varese} \\
 \begin{figure}[H]
 \includegraphics[scale=0.5]{simulation.png} 
 \centering
 \caption{Python code of the experiment}
 \end{figure}
+
+\noindent The most importan function used in the code of the experiment is run\_simulation that executes an instance of simulated annealing. The genetic algorithm generates a starting population which is a matrix (number of cycles $\times$ length of cycles - 2) then it evolves the whole population. In the end, if a cycle state is likely to come from the target distribution is accepted otherwise the evolution is rejected.
 
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -287,19 +295,20 @@ We provide an schematic description of the experiement run.
 \end{algorithmic}
 \end{algorithm}
 
-
+\noindent The follwing code show the python implementation of the algorithm explained above.  It is worth noting that the method acceptance is the implementation of metropolis algorithm.
 
 \begin{figure}[H]
 \includegraphics[scale=0.38]{run_simulation.png} 
 \centering
 \caption{Python code of a simulation}
 \end{figure}
-\noindent This method executes the simulated annealing. Indeed, we generate a starting population, we evolve it and accept or reject it with the metropolis algorithm.
+\noindent
 
-\noindent To be able to control and modify the code as i wish, all the algorithm described were implemented from scratch exploiting just some support libraries as \textit{numpy}, \textit{pyplot}, etc.
+\noindent A last remark, to be able to control and modify the code as wished, all the algorithm described were implemented from scratch exploiting just some support libraries as \textit{numpy}.
 
 \section{Results}
-In this section we compare the Simulated annealing with the exact algorithm to solve the TSP problem. As expected the computational time required to compute an exact solutions becomes too big as the length of the cycles increases. It is more efficient that the simulated annealing for small length of the cycles, since it perform faster and fewer operations. On the coutrary, the execution time of the SImulated Annealing is almost independent from the length of the cycles. The slight variations and the peaks in the plot may be dued to the scheduling of the operating system and its scheduler and the multithreading.
+In this section we compare the simulated annealing with the exact algorithm to solve the TSP problem. \\
+As expected the computational time required to compute an exact solutions becomes exponentially high as the length of the cycles increases. However, for small instances of the problem, it is more efficient that the simulated annealing since it perform faster and fewer operations. On the coutrary, the execution time of the simulated annealing is almost independent from the length of the cycles and remains very low. It is worthe notig that the slight variations and the peaks in the plot may be dued to the scheduling of the operating system and the multithreading.
 \begin{figure}[H]
 \begin{adjustwidth}{-4em}{-4em}
 
@@ -314,18 +323,19 @@ In this section we compare the Simulated annealing with the exact algorithm to s
      \caption{Comparison}
     \end{adjustwidth}
    \end{figure}
-\noindent As the plot above shows, simulated annealing is capable of finding optimal or slightly suboptimal solutions. However, it is reasonable to expect that as the length of the cycles increases the optimal solutions of the simulated annealing gets further away from the very best optimal solution.\\
-In the following we also plotted the shortest cycle computed by the simulated annealing when using all the possible cities. As starting point i choose provicial capital nearest to my home.
+ 
+\noindent As the plot above shows, simulated annealing is capable of finding optimal or slightly sub-optimal solutions. However, it is reasonable to expect that as the length of the cycles increases the optimal solutions of the simulated annealing move further away from the very best optimal solution. Since the algorithm is stochastic, can happen that longer cycles may have smoller cost than that of shorter cycles. For examplem, the cost of the cycle with 13 cities is lower than the cost of the cycle with 12 cities.\\
+In the following we also plotted the shortest cycle computed by the simulated annealing when using all the possible cities. As mentioned before, the starting point is \textit{Varese}.
 \begin{figure}[H]
-\includegraphics[scale=1]{../path.pdf} 
+\includegraphics[scale=0.8]{../path.pdf} 
 \centering
 \caption{Optimal cycle starting from Varese}
 \end{figure}
 
-ighway\section{Conclusion}
-Overall the simulated annealing and the genetic algorithm seem to have quite good performances. The cost function is almost always increasing and as far as it is possible to compare the simulated annealing finds very optimal cycle while keeping the execution time very low. \\
-As far as execution time is concerned, the length of the cycles seems to have a very limited influnce on the overall execution time, indeed, it exhibits almost a constant behaviour. \\
-As for the optimal cycle computed, for all of the cities the euclidean distance provides a suitable approximation of the routes of the highways present in northern Italy. However, this notion of distance does not take into account the TEMPO DI PERCORRENZA of the highways that can significantly change during the day and may not be correlated to significantly with the length of the highways.
+\section{Conclusion}
+Overall, the simulated annealing and the genetic algorithm seem to have quite remarkable performance. The cost function is almost always increasing and as far as it is possible to compare the simulated annealing finds very optimal cycle while keeping the execution time very low. \\
+As far as execution time is concerned, the length of the cycles seems to have a very limited influnce on the execution time, indeed, it exhibits a very sublinear behaviour. \\
+As for the optimal cycle computed, for all of the cities the euclidean distance provides a suitable approximation of the routes of the highways present in northern Italy. However, this notion of distance does not take into account the travel of the highways that can significantly change during the day and may not be correlated to significantly with the length of the highways.
 
 \newpage
 
@@ -335,20 +345,27 @@ As for the optimal cycle computed, for all of the cities the euclidean distance 
 Oliver Catoni
 \textit{Simulated annealing algorithms and Markov chains with rare transitions}, Séminaire de probabilités (Strasbourg), tome 33 (1999), p. 69-119.
 
-\bibitem{mcalgorithm}
+\bibitem{mctheory}
 Marius Iosifescu
 \textit{Finite markov process and their applications}, John Wiley \& Sons, 1980.
+
+\bibitem{mcalgorithm}
+M. Mitzenmacher, E. Upfal
+\textit{ Probability and Computing}, Cambridge university Press, 2005.
 
 \bibitem{gaBraun}
 Heinrich Braun
 \textit{On solving the travelling salesman problems by genetic algoritms}
 
 \bibitem{gareview}
-P. LARRAÑAGA, C.M.H. KUIJPERS, R.H. MURGA, I. INZA and S. DIZDAREVIC
+P. Larranaga, C.M.H. Kuijpers, R.H. Murga, I. Inza and S. Dizdarevic
 \textit{Genetic Algorithms for the Travelling Salesman Problem: A Review of Representations and Operators}, Artificial Intelligence Review 13: 129–170, 1999.
 
 \bibitem{test}
 https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/P\_np\_np-complete\_np-hard.svg/2000px-P\_np\_np-complete\_np-hard.svg.png
+
+\bibitem{autostrade}
+http://www.autostrade.it/it/autostrade-per-genova?nomobile=true
 
  
 \end{thebibliography}

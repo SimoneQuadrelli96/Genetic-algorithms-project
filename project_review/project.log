@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.15)  20 NOV 2019 18:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.15)  21 NOV 2019 13:39
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -361,7 +361,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 64--68
 
  []
 
-<complexity_classes.png, id=15, 2007.5pt x 1254.6875pt>
+<complexity_classes.png, id=16, 2007.5pt x 1254.6875pt>
 File: complexity_classes.png Graphic file (type png)
 <use complexity_classes.png>
 Package pdftex.def Info: complexity_classes.png  used on input line 72.
@@ -404,90 +404,89 @@ Underfull \hbox (badness 10000) in paragraph at lines 193--194
  []
 
 [6 <./crossbreeding.png>]
-<download_dataset.png, id=49, 1120.9378pt x 249.93375pt>
-File: download_dataset.png Graphic file (type png)
-<use download_dataset.png>
-Package pdftex.def Info: download_dataset.png  used on input line 240.
-(pdftex.def)             Requested size: 470.79066pt x 104.97145pt.
+<autostrade.jpg, id=49, 1204.5pt x 833.1125pt>
+File: autostrade.jpg Graphic file (type jpg)
+<use autostrade.jpg>
+Package pdftex.def Info: autostrade.jpg  used on input line 232.
+(pdftex.def)             Requested size: 481.79147pt x 333.23909pt.
 
-Overfull \hbox (40.78604pt too wide) in paragraph at lines 240--242
+Overfull \hbox (51.78685pt too wide) in paragraph at lines 232--234
  [][] 
  []
 
-[7 <./download_dataset.png (PNG copy)>]
-<simulation.png, id=53, 815.29594pt x 493.0922pt>
+[7 <./autostrade.jpg>]
+<download_dataset.png, id=53, 1120.9378pt x 249.93375pt>
+File: download_dataset.png Graphic file (type png)
+<use download_dataset.png>
+Package pdftex.def Info: download_dataset.png  used on input line 245.
+(pdftex.def)             Requested size: 470.79066pt x 104.97145pt.
+
+Overfull \hbox (40.78604pt too wide) in paragraph at lines 245--247
+ [][] 
+ []
+
+[8 <./download_dataset.png (PNG copy)>]
+<simulation.png, id=57, 815.29594pt x 493.0922pt>
 File: simulation.png Graphic file (type png)
 <use simulation.png>
-Package pdftex.def Info: simulation.png  used on input line 270.
+Package pdftex.def Info: simulation.png  used on input line 276.
 (pdftex.def)             Requested size: 407.64697pt x 246.54549pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 267--273
+Underfull \hbox (badness 10000) in paragraph at lines 274--279
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 267--273
-
- []
-
-[8 <./simulation.png (PNG copy)>]
-<run_simulation.png, id=57, 1111.90407pt x 361.35pt>
+[9 <./simulation.png (PNG copy)>]
+<run_simulation.png, id=61, 1111.90407pt x 361.35pt>
 File: run_simulation.png Graphic file (type png)
 <use run_simulation.png>
-Package pdftex.def Info: run_simulation.png  used on input line 293.
+Package pdftex.def Info: run_simulation.png  used on input line 301.
 (pdftex.def)             Requested size: 422.52794pt x 137.31442pt.
-<../Cost_comparison.pdf, id=58, 433.62pt x 289.08pt>
+<../Cost_comparison.pdf, id=62, 433.62pt x 289.08pt>
 File: ../Cost_comparison.pdf Graphic file (type pdf)
 <use ../Cost_comparison.pdf>
-Package pdftex.def Info: ../Cost_comparison.pdf  used on input line 308.
+Package pdftex.def Info: ../Cost_comparison.pdf  used on input line 317.
 (pdftex.def)             Requested size: 258.00539pt x 172.01134pt.
-<../Time_comparison.pdf, id=59, 433.62pt x 289.08pt>
+<../Time_comparison.pdf, id=63, 433.62pt x 289.08pt>
 File: ../Time_comparison.pdf Graphic file (type pdf)
 <use ../Time_comparison.pdf>
-Package pdftex.def Info: ../Time_comparison.pdf  used on input line 312.
+Package pdftex.def Info: ../Time_comparison.pdf  used on input line 321.
 (pdftex.def)             Requested size: 258.00539pt x 172.01134pt.
 
-Overfull \hbox (12.67268pt too wide) in paragraph at lines 308--313
+Overfull \hbox (12.67268pt too wide) in paragraph at lines 317--322
 [][] [] 
  []
 
-[9 <./run_simulation.png (PNG copy)>]
-<../path.pdf, id=63, 433.62pt x 289.08pt>
+[10 <./run_simulation.png (PNG copy)>]
+<../path.pdf, id=67, 433.62pt x 289.08pt>
 File: ../path.pdf Graphic file (type pdf)
 <use ../path.pdf>
-Package pdftex.def Info: ../path.pdf  used on input line 320.
-(pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
-
-Overfull \hbox (3.61432pt too wide) in paragraph at lines 320--322
- [][] 
- []
-
-[10 <../Cost_comparison.pdf> <../Time_comparison.pdf
+Package pdftex.def Info: ../path.pdf  used on input line 330.
+(pdftex.def)             Requested size: 346.89647pt x 231.2643pt.
+ [11 <../Cost_comparison.pdf> <../Time_comparison.pdf
 
 pdfTeX warning: pdflatex (file ../Time_comparison.pdf): PDF inclusion: multiple
  pdfs with page group included in a single page
->] [11 <../path.pdf>]
+>] [12 <../path.pdf>]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no ‘ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no “ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--352
+Underfull \hbox (badness 10000) in paragraph at lines 365--366
 []\OT1/cmr/m/n/10 https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/P[]
 np[]np-complete[]np-
  []
 
-[12] (./project.aux) ) 
+[13] (./project.aux) ) 
 Here is how much of TeX's memory you used:
- 4550 strings out of 492982
- 68075 string characters out of 6134895
- 136332 words of memory out of 5000000
- 8040 multiletter control sequences out of 15000+600000
+ 4558 strings out of 492982
+ 68198 string characters out of 6134895
+ 135346 words of memory out of 5000000
+ 8047 multiletter control sequences out of 15000+600000
  8833 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,13n,42p,711b,368s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -506,10 +505,10 @@ msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 >
-Output written on project.pdf (14 pages, 715328 bytes).
+Output written on project.pdf (15 pages, 1007369 bytes).
 PDF statistics:
- 244 PDF objects out of 1000 (max. 8388607)
- 96 compressed objects within 1 object stream
+ 246 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
