@@ -52,7 +52,6 @@
 \newpage 
 \pagenumbering{roman}
 \tableofcontents
-\listoftables
 \listoffigures
 \newpage
 
@@ -66,7 +65,7 @@ An algorithm that provides a solution to the travelling salesman problem can be 
 It is possible to model the problem usign an undirected, weighted and fully connected graph \footnote{For an hamiltinian cycle to exist the graph must be at least connected} $G = (N,E)$, where $N$ is the set of the cities to visit and $E =  N \times N$ is the weight of the path. In this particular instance of the problem the weights correspond to the euclidean distance between each couple of cities.
 Formally, an hamiltonian cycle can be defined as a sequence $(n_0, .., n_{k-1})$ of length k such that $n_i \neq n_j \; \forall i,j \in \{1,..., |N|\}$. \\
 \subsection{Hardness of the travelling salesman problem}
-Solving the travelling salesman problem pose very tricky computational problems. Indeed, the most intuitive solution to the problem consist in computing all the possible paths and then evaluate all their lengths to find the shortest. But the number of possible cycles is $(n-1)!$ and grows faster that $2^n$ (i.e. $2^n = o(n!)$) and thus the problem cannot be solved in finite time for large $n$. Morover, even if it was possible to generate each hamiltonian cycle in constant time independently from their length, the algorithm will have an exponential time complexity to find the best result.  \\
+Solving the travelling salesman problem pose very tricky computational problems. Indeed, the most intuitive solution to the problem consist in computing all the possible paths and then evaluate all their lengths to find the shortest. But the number of possible cycles is $\frac{(n-1)!}{2}$ and grows faster that $2^n$ (i.e. $2^n = o(n!)$) and thus the problem cannot be solved in finite time for large $n$. Morover, even if it was possible to generate each hamiltonian cycle in constant time independently from their length, the algorithm will have an exponential time complexity to find the best result.  \\
 More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least as hard as the hardest NP-complete problem. \textit{NP-complete} problems are problems that can be solved in polynomial time by a non-deterministic algorithm. For such a class of problem there exists no polynomial algorithm that can solve the problems and may not exist, still noone was able to prove that such algorithms does not exists.
 \begin{figure}[H]
 \includegraphics[scale=0.25]{complexity_classes.png} 
@@ -76,6 +75,15 @@ More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least
 \noindent Bearing in mind the complexity problem to face, the most reasonable solution is to solve the problem approximately. The technique I used to generate the possible hamiltonian cycles is a genetic algorithm, while the choice of the shortest hamiltonian cycle is done by the \textit{simulated annealing} algorithm.
 
 \section{Literature review}
+There are many processes seeking a stable state in nature and they can be seen as natural optimization processes. Many efforts were done to find out global optimization techniques that simulate natural optimization. There can be depicted three main class of optimization algorithms
+\begin{enumerate}
+\item Simulated Annealing
+\item Artificial Neural Networks
+\item Evolutionary Algorithms
+\end{enumerate}
+Among the evelutionary algorithms can be found different subsclasses of algorithms such as evolutionary programming (1962), evolution strategies (1965) and genetic algorithms (1975) which exploit in different ways mimic Darwin's theory.  Overall, evolutionary algorithms are stochastic search algorithms simulating the natural evolution processes. \cite{gareview}\\
+It was discovered that such algorithms are suitable optimization techniques for NP-hard problems. Not surprisingly they are very fit for biological pharmaceutical and chemistry application. \\
+On the other hand, Artificial Neural Networks were exploited only recently since they require an enormous amount of data and a huge computational power. Those algorithms does not provide a strightforward interpretation and therefore may not be suitable in industrial logistic applications. \cite{annreview}
 
 \section{Algorithms and techniques} \label{algorithms}
 In this section we provide a brief overview of all the techniques and aglorithms exploited. They are: Simualted Annealing, Metropolis algorithm and Genetic algorithm.
@@ -360,6 +368,10 @@ Heinrich Braun
 \bibitem{gareview}
 P. Larranaga, C.M.H. Kuijpers, R.H. Murga, I. Inza and S. Dizdarevic
 \textit{Genetic Algorithms for the Travelling Salesman Problem: A Review of Representations and Operators}, Artificial Intelligence Review 13: 129–170, 1999.
+
+\bibitem{annreview}
+C. Peterson
+\textit{Parallel Distributed Approaches to Combinatorial Optimization: Benchmark Studies on Traveling Salesman Problem}
 
 \bibitem{test}
 https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/P\_np\_np-complete\_np-hard.svg/2000px-P\_np\_np-complete\_np-hard.svg.png
