@@ -5,7 +5,7 @@
 \contentsline {subsection}{\numberline {3.1}Simulated annealing}{3}
 \contentsline {subsection}{\numberline {3.2}Metropolis algorithm}{4}
 \contentsline {subsubsection}{\numberline {3.2.1}Properties of Metropolis algorithm}{5}
-\contentsline {subsection}{\numberline {3.3}Genetic algorithm}{5}
+\contentsline {subsection}{\numberline {3.3}Genetic algorithm}{6}
 \contentsline {section}{\numberline {4}Application}{7}
 \contentsline {subsection}{\numberline {4.1}Distance}{7}
 \contentsline {subsection}{\numberline {4.2}Dataset}{8}
