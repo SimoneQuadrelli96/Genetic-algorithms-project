@@ -64,9 +64,9 @@ The travelling salesman problem (TSP) consists in finding the shortest route a t
 An algorithm that provides a solution to the travelling salesman problem can be exploited in a wide variety of applications: for example, it can be used in logistics to optimize the path of vehicles and therefore to reduce costs. The solutions that exploit euclidean distances can easily be applied to schedule drones shipping in cities without too high skyscrapers and buildings. \\
 It is possible to model the problem using an undirected, weighted and fully connected graph\footnote{For an hamiltinian cycle to exist the graph must be at least connected} $G = (N,E)$, where $N$ is the set of the cities to visit and $E =  N \times N$ is the weight of the path. In this particular instance of the problem the weights correspond to the euclidean distance between each couple of cities.
 Formally, the route of the travelling salesman is an hamiltonian cycle defined as a sequence $(n_0, .., n_{k-1})$ of length k such that $n_i \neq n_j \; \forall i,j \in \{1,..., |N|+1\}$ and $n_0 = n_{|N|+1}$. \\
-\subsection{Hardness of the travelling salesman problem}
-Solving the travelling salesman problem pose very tricky computational problems. Indeed, the most intuitive solution to the problem consist in computing all the possible paths and then evaluate all their lengths to find the shortest. But the number of possible cycles is $\frac{(n-1)!}{2}$ and grows faster that $2^n$ (i.e. $2^n = o(n!)$) and thus making it unsolvable in finite time for large $n$. Morover, even if it was possible to generate each hamiltonian cycle in constant time independently from their length, the algorithm will still have an exponential time complexity to find the best result.  \\
-More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least as hard as the hardest NP-complete problem. \textit{NP-complete} problems are problems that can be solved in polynomial time by a non-deterministic algorithm. For such a class of problem there exists no known polynomial algorithm that can solve the problems and may not exist, still noone was able to prove that such algorithm does not exist.
+\subsection{Complexity of the travelling salesman problem}
+Solving the travelling salesman problem pose very tricky computational problems. Indeed, the most intuitive solution to the problem consists in computing all the possible paths and then evaluate all their lengths to find the shortest one. But the number of possible cycles is $\frac{(n-1)!}{2}$ and grows faster than $2^n$ (i.e. $2^n = o(n!)$) and thus making it unsolvable in finite time for large $n$. Morover, even if it was possible to generate each hamiltonian cycle in constant time independently from their length, the algorithm will still have an exponential time complexity to find the best result.  \\
+More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least as hard as the hardest NP-complete problem. \textit{NP-complete} problems are problems that can be solved in polynomial time by a non-deterministic algorithm. For such a class of problem there exists no known polynomial algorithm that can solve the problems. It may not exist but still noone was able to prove that such algorithm does not exist.
 \begin{figure}[H]
 \includegraphics[scale=0.25]{complexity_classes.png} 
 \centering
@@ -83,21 +83,21 @@ Many efforts were done to find out global optimization techniques that simulate 
 \end{enumerate}
 Among the evelutionary algorithms, there can be found different subsclasses: evolutionary programming (1962), evolution strategies (1965) and genetic algorithms (1975) which mimic in different ways Darwin's theory.  Overall, evolutionary algorithms are stochastic search algorithms simulating the natural evolution processes. \cite{gareview}\\
 It was discovered that such algorithms are suitable optimization techniques for NP-hard problems and not surprisingly they are very fit for biological, pharmaceutical and chemical applications. \\
-On the other hand, Artificial Neural Networks were exploited only recently since they require an enormous amount of data and a huge computational power. Those algorithms does not provide a strightforward interpretation and therefore may not be suitable in logistic applications. \cite{annreview}
+On the other hand, Artificial Neural Networks were exploited only recently since they require an enormous amount of data and a huge computational power. Those algorithms do not provide a strightforward interpretation and therefore may not be suitable in logistic applications. \cite{annreview}
 
 \section{Algorithms and techniques} \label{algorithms}
-In this section we provide a brief overview of all the techniques and algorithms exploited. They are: Simualted Annealing, Metropolis algorithm and a Genetic algorithm.
+This section provides a brief overview of all the techniques and algorithms exploited. They are: Simualted Annealing, Metropolis algorithm and a Genetic algorithm.
 
 \subsection{Simulated annealing}
-Simulated annealing (SA) is a technique that mimic the behaviour of heated materials slowly cooled down in metallurgy, this process decreases the impurity and increases the size of the crystals meaning that allows the materials to reach the minimum energy state. It is a technique to approximate the global optimal solution when it is to be searched in an enormous space. SA is a metaheuristic meaning that it is not a probelm-specific stochastic heuristic. As every metaheuristic algorithm it relies on two principles \textit{intensitification} and \textit{diversification}. Indeed, the algorithm intensifies the search near different possible optimal solutions.
+Simulated annealing (SA) is a technique that mimics the behaviour of heated materials slowly cooled down in metallurgy, this process decreases the impurity and increases the size of the crystals meaning that allows the materials to reach the minimum energy state. It is a technique to approximate the global optimal solution when it is to be searched in an enormous space. SA is a metaheuristic meaning that it is not a probelm-specific stochastic heuristic. As every metaheuristic algorithm, it relies on two principles \textit{intensitification} and \textit{diversification}. Indeed, the algorithm intensifies the search near different possible optimal solutions.
 SA is very useful since it does not require any prior information, other than the cost, indeed it just supposes that states (hamiltonian cycles in our case) are distributed accordingly to the Bolzmann distribution:
 \begin{equation}
 e^{- \beta (cost(state))}
 \end{equation}
 The Boltzmann distribution is suitable to model the TSP problem since it is most unbiased distribution among all the possible ones. The unbiasedness derives from the maximization of the Shannon entropy, given the cost.\\
 The underlying assumption of simulated annealing is that the optimal states are the states with the lowest cost, and they are reached as the temperature decreases. Temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore we start with low values of $\beta$ (high temperature) and, as the simulation proceeds, we increase the values of $\beta$, thus mimicking the decrease in temperature.
-The only other information needed is the cost function. For this specific application the cost function is the sum of euclidean distances between the cities in the cycle. The coordinate of a city $(x,y)$ are expressed in longitude and latitude.\\
-In the following we provide a schematic overview of the simulated annealing implemented.
+The only other information needed is the cost function. For this specific application the cost function is the sum of euclidean distances between the cities in the cycle. The coordinates of a city $(x,y)$ are expressed in longitude and latitude.\\
+In the following algorithm provides a schematic overview of the simulated annealing implemented.
 
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -171,7 +171,7 @@ If a probability distribution $\pi$ is a reversible distribution for a markov ch
 \begin{proof}
 $ (\pi'P)_j = \sum_{i \in S} \pi(i)p(i,j) = \sum_{i \in S} \pi(j)p(j,i) = \pi(j) $ 
 \end{proof}
-\noindent If this distribution was unique than we are certain to correctly generate the data accordingly to the target distribution. The stationary distibution is unique if the transition matrix is primitive as stated by the follwing theorem.
+\noindent If this distribution is unique then it assures to correctly generate the data accordingly to the target distribution. The stationary distibution is unique if the transition matrix is primitive as stated by the follwing theorem.
 \begin{theorem}
 Let $\{X_n\}$ be a markov chain with a primitive (i.e. irreducible and aperiodic) transition matrix on a finite set, then  there exist only one stationary distribution and it as also the limit distribution $\lim_{n \to \infty} p^n(i,j) = \pi(j)\,  \forall i \in S$
 \end{theorem}
@@ -227,7 +227,7 @@ Among a specie, evolution selects the fittest individuals and therefore the algo
 \end{algorithmic}
 \end{algorithm}
 
-\noindent There are many possible implementations of the basic operations performed by a genetic algorithm. Therefore I decided to implement them from scratch. The implementation of those functions is not very interesting and requires many implementative details, therefore we omit it in the present work.
+\noindent There are many possible implementations of the basic operations performed by a genetic algorithm. Therefore I decided to implement them from scratch. The implementation of those functions is not very interesting and requires many implementative details, therefore it is omitted in the present work.
 
 \section{Application} 
 This section provides the reader with the necessary information about the choice of the distance function, the dataset and the precise algorithmical and python implementation of the key functions.
@@ -245,7 +245,7 @@ The first problem to overcome is to choose an appropriate notion of distance. Wh
 \subsection{Dataset}
 Taking into account the constraint fixed by the choice of the distance the dataset used refers to cities in northern Italy: \textit{Varese, Novara, Torino, Milano, Como, Bergamo, Brescia, Cremona, Lecco, Lodi, Mantova, Monza, Pavia, Sondrio, Verona, Vicenza, Padova, Venezia}. \\
 The dataset consists in the coordinates of the cities above in terms of latitude and longitude. Since latitude and longitude is a global scale the cities are very close one another and therefore the cost of the hamiltonian cycles is very low.\\
-The informations were downloaded using the python library \textit{geopy} as follows:
+The information were downloaded using the python library \textit{geopy} as follows:
 
 \begin{figure}[H]
 \includegraphics[scale=0.42]{download_dataset.png} 
@@ -301,7 +301,7 @@ The algorithm  below provides a schematic description of the experiement run.
 \end{algorithmic}
 \end{algorithm}
 
-\noindent The follwing code show the python implementation of the algorithm explained above.
+\noindent The follwing code shows the python implementation of the algorithm explained above.
 \begin{figure}[H]
 \includegraphics[scale=0.38]{run_simulation.png} 
 \centering
@@ -309,11 +309,11 @@ The algorithm  below provides a schematic description of the experiement run.
 \end{figure}
 \noindent
 
-\noindent A last remark, to be able to control and modify the code as wished, all the algorithm described were implemented from scratch exploiting just some support libraries as \textit{numpy}.
+\noindent A last remark, to be able to control and modify the code as wished, all the algorithms described were implemented from scratch exploiting just some support libraries as \textit{numpy}.
 
 \section{Results}
-In this section we compare the simulated annealing with the exact algorithm to solve the TSP problem. \\
-As expected the computational time required to compute an exact solutions becomes exponentially high as the length of the cycles increases. However, for small instances of the problem, it is more efficient that the simulated annealing since it perform faster and fewer operations. On the contrary, the execution time of the simulated annealing is almost independent from the length of the cycles and remains very low. It is worth noting that the slight variations and the peaks in the plot may be caused by the scheduling of the operating system and the multithreading.
+This section compares the simulated annealing with the exact algorithm to solve the TSP problem. \\
+As expected the computational time required to compute an exact solution becomes exponentially high as the length of the cycles increases. However, for small instances of the problem, it is more efficient than the simulated annealing since it perform faster and fewer operations. On the contrary, the execution time of the simulated annealing is almost independent from the length of the cycles and remains very low. It is worth noting that the slight variations and the peaks in the plot may be caused by the scheduling of the operating system and the multithreading.
 \begin{figure}[H]
 \begin{adjustwidth}{-4em}{-4em}
 

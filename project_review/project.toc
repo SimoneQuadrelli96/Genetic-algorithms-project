@@ -1,5 +1,5 @@
 \contentsline {section}{\numberline {1}Introduction}{1}
-\contentsline {subsection}{\numberline {1.1}Hardness of the travelling salesman problem}{1}
+\contentsline {subsection}{\numberline {1.1}Complexity of the travelling salesman problem}{1}
 \contentsline {section}{\numberline {2}Literature review}{2}
 \contentsline {section}{\numberline {3}Algorithms and techniques}{3}
 \contentsline {subsection}{\numberline {3.1}Simulated annealing}{3}

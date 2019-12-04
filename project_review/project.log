@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.15)  24 NOV 2019 16:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.15)  4 DEC 2019 18:13
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -487,7 +487,7 @@ Here is how much of TeX's memory you used:
  8047 multiletter control sequences out of 15000+600000
  8833 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,13n,42p,693b,368s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,13n,42p,695b,368s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10
@@ -503,7 +503,7 @@ msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 >
-Output written on project.pdf (15 pages, 1008831 bytes).
+Output written on project.pdf (15 pages, 1009045 bytes).
 PDF statistics:
  246 PDF objects out of 1000 (max. 8388607)
  98 compressed objects within 1 object stream
