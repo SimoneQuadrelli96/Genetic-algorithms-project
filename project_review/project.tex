@@ -96,7 +96,7 @@ SA is very versatile since it does not require any prior information, other than
 \begin{equation}
 e^{- \beta (cost(state))}
 \end{equation}
-The Boltzmann distribution is suitable to model the TSP problem since it models the distribution of states with the smallest possible bias. Indeed, its unbiasedness derives from the maximization of the Shannon entropy, given the cost.\\
+The Boltzmann distribution is suitable to model the TSP problem since it models the distribution of states with the smallest possible bias. Indeed, its unbiasedness derives from the maximization of the Shannon's entropy, given the cost.\\
 The underlying assumption of simulated annealing is that the optimal states are the states with the lowest cost, and they are reached as the temperature decreases.\\
 Temperature $T$ is the inverse of $\beta$ ($T = \frac{1}{\beta}$), therefore the SA starts with low values of $\beta$ (high temperature) and, as the simulation proceeds, the values of $\beta$  increase, thus mimicking the decrease in temperature. \\
 As mentioned before, the only other information needed is the cost function, that, for this specific application, is the sum of euclidean distances between the cities in the cycle, whose coordinates are expressed in longitude and latitude.\\
@@ -207,7 +207,7 @@ Among a specie, evolution selects the fittest individuals and therefore the algo
 \caption{Crossbreeding schema}
 \end{figure}
 
-\noindent As random mutations can occur in nature but they are unlikely to, the algorithms swaps two cities with a fixed and low probability. Otherwise mutations will disrupt the optimal subsequence of the cycle inherited. \\
+\noindent As random mutations can occur in nature but they are unlikely to, the algorithm swaps two cities with a fixed and low probability. Otherwise mutations will disrupt the optimal subsequence of the cycle inherited. \\
 
 
 \begin{algorithm}[H]
@@ -240,7 +240,7 @@ Among a specie, evolution selects the fittest individuals and therefore the algo
 \noindent There are many possible implementations of the basic operations performed by a genetic algorithm. Therefore I decided to implement them from scratch. However, the implementation of those functions is not very interesting and requires many implementative details, therefore it is omitted in the present work.
 
 \section{Application} 
-This section provides the reader with the necessary information about the choice of the distance function, the dataset and the precise algorithmical and python implementation of the key functions.
+This section provides the reader with the necessary information about the choice of the distance function, the dataset and the precise algorithmical and python implementation of key functions.
 
 \subsection{Distance}
 The first problem to overcome is to choose an appropriate notion of distance. When the construction of routes faces few natural constraints, such as in the Po valley, streets are built to minimize the distance between the cities they connect. The easiest way to minimize the distance is to use the euclidean distance since small portions of earth can be considered as a plain. Therefore to realistically model the routes of the highways that connect important cities in northern Italy euclidean distance seems to be a suitable measure, as can be seen from Figure \ref{autostrade}.
@@ -249,11 +249,11 @@ The first problem to overcome is to choose an appropriate notion of distance. Wh
 \centering
 \caption{Scheme of the highways by \textit{Autostrade per l'Italia}\cite{autostrade}} \label{autostrade}
 \end{figure}
-\noindent On the other hand, euclidean distance seems not to connect too well cities in the other italian regions like Tuscany and Emilia-Romagna since the Apennine Mountains prevent to connect the city on the west coast of central italy to cities on the east cost.
+\noindent On the other hand, euclidean distance seems not to connect too well cities in the other italian regions like Tuscany and Emilia-Romagna since the Apennine Mountains prevent to easily connect the city on the west coast of central italy to cities on the east cost.
 
 
 \subsection{Dataset}
-Taking into account the constraint fixed by the choice of the distance the dataset used refers to cities in northern Italy: \textit{Varese, Novara, Torino, Milano, Como, Bergamo, Brescia, Cremona, Lecco, Lodi, Mantova, Monza, Pavia, Sondrio, Verona, Vicenza, Padova, Venezia}. \\
+Taking into account the constraint fixed by the choice of the distance, the dataset used refers to cities in northern Italy: \textit{Varese, Novara, Torino, Milano, Como, Bergamo, Brescia, Cremona, Lecco, Lodi, Mantova, Monza, Pavia, Sondrio, Verona, Vicenza, Padova, Venezia}. \\
 The dataset consists in the coordinates of the cities above in terms of latitude and longitude. Since latitude and longitude is a global scale the cities are very close one another and therefore the cost of the hamiltonian cycles is very low.\\
 The information were downloaded using the python library \textit{geopy} as follows:
 
@@ -265,7 +265,7 @@ The information were downloaded using the python library \textit{geopy} as follo
 
 \subsection{Software used}
 The objective of this simulation is to compare the optimal solutions of the TSP computed by the appromated algorithm and the exact solution.
-However, as explained before, the exact solution of the TSP is not feasible when the number of cities grows too much, therefore exact solutions are computed just as long as it is computationally feasible. \\
+However, as explained before, the exact solution of the TSP is not feasible when the number of cities grows too much, therefore they are computed just as long as it is computationally feasible. \\
 The algorithm select a growing set of cities each iteration, executes in parallel some predefined number of simulated annealing and select the best solution among the results of the simulated annealings. Then it computes, if feasible, the exact solution. The values are saved at each iteration and then are plotted to easily show the results.\\
 The code was also instrumented to keep track of the execution time of both algorithms.
 The algorithm  below provides a schematic description of the experiement run. 
@@ -324,7 +324,7 @@ The genetic algorithm generates a starting population which is a matrix then it 
 
 \section{Results}
 This section compares the simulated annealing with the exact algorithm to solve the TSP problem. \\
-As expected the computational time required to compute an exact solution becomes exponentially high as the length of the cycles increases. However, for small instances of the problem, it is more efficient than the simulated annealing since it perform faster and fewer operations. On the contrary, the execution time of the simulated annealing is almost independent from the length of the cycles and remains very low. It is worth noting that the slight variations and the peaks in the execution time plot may be caused by the scheduling of the operating system and the multithreading.
+As expected the computational time required to compute an exact solution becomes exponentially high as the length of the cycles increases. However, for small instances of the problem, it is more efficient than the simulated annealing since it perform faster and fewer operations. On the contrary, the execution time\footnote{All time measurement rely on a Intel Core i5-7200U dual core processor and 8 GB DDR4 RAM} of the simulated annealing is almost independent from the length of the cycles and remains very low. It is worth noting that the slight variations and the peaks in the execution time plot may be caused by the scheduling of the operating system and the multithreading.
 \begin{figure}[H]
 \begin{adjustwidth}{-4em}{-4em}
 
@@ -340,8 +340,8 @@ As expected the computational time required to compute an exact solution becomes
     \end{adjustwidth}
    \end{figure}
  
-\noindent As the plot above shows, simulated annealing is capable of finding optimal or slightly sub-optimal solutions. However, it is reasonable to expect that as the length of the cycles increases the optimal solutions of the simulated annealing move further away from the very best optimal solution. Since the algorithm is stochastic, can happen that longer cycles may have smaller cost than that of shorter cycles. For example, the cost of the cycle with 13 cities is lower than the cost of the cycle with 12 cities.\\
-In the following we also plotted the shortest cycle computed by the simulated annealing when using all the possible cities. As mentioned before, the starting point is \textit{Varese}.
+\noindent As the plot above shows, simulated annealing is capable of finding optimal or slightly sub-optimal solutions. However, it is reasonable to expect that as the length of the cycles increases the optimal solutions of the simulated annealing move further away from the very best optimal solution. Since the algorithm is stochastic, can happen that longer cycles may have smaller cost than that of shorter cycles. For instance, the cost of the cycle with 13 cities is lower than the cost of the cycle with 12 cities.\\
+In the following, it is plotted the shortest cycle computed by the simulated annealing when using all the possible cities. As mentioned before, the starting point is \textit{Varese}.
 \begin{figure}[H]
 \includegraphics[scale=0.8]{../path.pdf} 
 \centering
