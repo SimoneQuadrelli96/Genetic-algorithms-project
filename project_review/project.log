@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.15)  4 DEC 2019 18:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.15)  9 DEC 2019 11:56
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -368,104 +368,101 @@ Overfull \hbox (71.86916pt too wide) in paragraph at lines 71--73
  []
 
 [1] [2 <./complexity_classes.png>] [3]
-Overfull \hbox (2.66628pt too wide) in paragraph at lines 131--133
-\OT1/cmr/m/n/10 The fol-low-ing al-go-rithm de-scribes the metropo-lis al-go-ri
-thm when the tar-get dis-tri-bu-tion is $\OML/cmm/m/it/10 ^^Y\OT1/cmr/m/n/10 ([
-]) =
+Overfull \hbox (1.44606pt too wide) in paragraph at lines 136--139
+\OT1/cmr/m/n/10 In the fol-low-ing we sup-pose to have gen-er-ated two hamil-to
+-nian cy-cles (i.e states) old[]state, new[]state.
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 182--184
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 186--197
+Underfull \hbox (badness 10000) in paragraph at lines 187--189
 
  []
 
 [5]
+Underfull \hbox (badness 10000) in paragraph at lines 191--203
+
+ []
+
 <crossbreeding.png, id=44, 732.48656pt x 302.63063pt>
 File: crossbreeding.png Graphic file (type png)
 <use crossbreeding.png>
-Package pdftex.def Info: crossbreeding.png  used on input line 199.
+Package pdftex.def Info: crossbreeding.png  used on input line 205.
 (pdftex.def)             Requested size: 366.24237pt x 151.31494pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 198--202
+Underfull \hbox (badness 10000) in paragraph at lines 204--208
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 204--205
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
 
  []
 
-[6 <./crossbreeding.png>]
-<autostrade.jpg, id=49, 1204.5pt x 833.1125pt>
+[7 <./crossbreeding.png>]
+<autostrade.jpg, id=52, 1204.5pt x 833.1125pt>
 File: autostrade.jpg Graphic file (type jpg)
 <use autostrade.jpg>
-Package pdftex.def Info: autostrade.jpg  used on input line 242.
+Package pdftex.def Info: autostrade.jpg  used on input line 248.
 (pdftex.def)             Requested size: 481.79147pt x 333.23909pt.
 
-Overfull \hbox (51.78685pt too wide) in paragraph at lines 242--244
- [][] 
- []
-
-[7]
-<download_dataset.png, id=53, 1120.9378pt x 249.93375pt>
-File: download_dataset.png Graphic file (type png)
-<use download_dataset.png>
-Package pdftex.def Info: download_dataset.png  used on input line 255.
-(pdftex.def)             Requested size: 470.79066pt x 104.97145pt.
-
-Overfull \hbox (40.78604pt too wide) in paragraph at lines 255--257
+Overfull \hbox (51.78685pt too wide) in paragraph at lines 248--250
  [][] 
  []
 
 [8 <./autostrade.jpg>]
-<simulation.png, id=57, 815.29594pt x 493.0922pt>
-File: simulation.png Graphic file (type png)
-<use simulation.png>
-Package pdftex.def Info: simulation.png  used on input line 286.
-(pdftex.def)             Requested size: 407.64697pt x 246.54549pt.
+<download_dataset.png, id=56, 1120.9378pt x 249.93375pt>
+File: download_dataset.png Graphic file (type png)
+<use download_dataset.png>
+Package pdftex.def Info: download_dataset.png  used on input line 261.
+(pdftex.def)             Requested size: 470.79066pt x 104.97145pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 284--289
-
+Overfull \hbox (40.78604pt too wide) in paragraph at lines 261--263
+ [][] 
  []
 
 [9 <./download_dataset.png (PNG copy)>]
-<run_simulation.png, id=61, 1111.90407pt x 361.35pt>
+<simulation.png, id=60, 815.29594pt x 493.0922pt>
+File: simulation.png Graphic file (type png)
+<use simulation.png>
+Package pdftex.def Info: simulation.png  used on input line 292.
+(pdftex.def)             Requested size: 407.64697pt x 246.54549pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 290--295
+
+ []
+
+[10 <./simulation.png (PNG copy)>]
+<run_simulation.png, id=64, 1111.90407pt x 361.35pt>
 File: run_simulation.png Graphic file (type png)
 <use run_simulation.png>
-Package pdftex.def Info: run_simulation.png  used on input line 311.
+Package pdftex.def Info: run_simulation.png  used on input line 317.
 (pdftex.def)             Requested size: 422.52794pt x 137.31442pt.
- [10 <./simulation.png (PNG copy)>]
 <../Cost_comparison.pdf, id=65, 433.62pt x 289.08pt>
 File: ../Cost_comparison.pdf Graphic file (type pdf)
 <use ../Cost_comparison.pdf>
-Package pdftex.def Info: ../Cost_comparison.pdf  used on input line 327.
+Package pdftex.def Info: ../Cost_comparison.pdf  used on input line 333.
 (pdftex.def)             Requested size: 258.00539pt x 172.01134pt.
 <../Time_comparison.pdf, id=66, 433.62pt x 289.08pt>
 File: ../Time_comparison.pdf Graphic file (type pdf)
 <use ../Time_comparison.pdf>
-Package pdftex.def Info: ../Time_comparison.pdf  used on input line 331.
+Package pdftex.def Info: ../Time_comparison.pdf  used on input line 337.
 (pdftex.def)             Requested size: 258.00539pt x 172.01134pt.
 
-Overfull \hbox (12.67268pt too wide) in paragraph at lines 327--332
+Overfull \hbox (12.67268pt too wide) in paragraph at lines 333--338
 [][] [] 
  []
 
-<../path.pdf, id=67, 433.62pt x 289.08pt>
+[11 <./run_simulation.png (PNG copy)>]
+<../path.pdf, id=71, 433.62pt x 289.08pt>
 File: ../path.pdf Graphic file (type pdf)
 <use ../path.pdf>
-Package pdftex.def Info: ../path.pdf  used on input line 340.
+Package pdftex.def Info: ../path.pdf  used on input line 346.
 (pdftex.def)             Requested size: 346.89647pt x 231.2643pt.
-[11 <./run_simulation.png (PNG copy)> <../Cost_comparison.pdf> <../Time_compari
-son.pdf
+ [12 <../Cost_comparison.pdf> <../Time_comparison.pdf
 
 pdfTeX warning: pdflatex (file ../Time_comparison.pdf): PDF inclusion: multiple
  pdfs with page group included in a single page
->] [12 <../path.pdf>]
+>] [13 <../path.pdf>]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
 Missing character: There is no Ã in font cmr10!
@@ -474,20 +471,20 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no “ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 379--380
+Underfull \hbox (badness 10000) in paragraph at lines 385--386
 []\OT1/cmr/m/n/10 https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/P[]
 np[]np-complete[]np-
  []
 
-[13] (./project.aux) ) 
+[14] (./project.aux) ) 
 Here is how much of TeX's memory you used:
  4555 strings out of 492982
  68175 string characters out of 6134895
- 135349 words of memory out of 5000000
+ 136349 words of memory out of 5000000
  8047 multiletter control sequences out of 15000+600000
  8833 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,13n,42p,630b,368s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,13n,42p,639b,368s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10
@@ -503,10 +500,10 @@ msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 >
-Output written on project.pdf (15 pages, 1009057 bytes).
+Output written on project.pdf (16 pages, 1009803 bytes).
 PDF statistics:
- 246 PDF objects out of 1000 (max. 8388607)
- 98 compressed objects within 1 object stream
+ 249 PDF objects out of 1000 (max. 8388607)
+ 100 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
