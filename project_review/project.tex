@@ -62,10 +62,10 @@ The report shows the result of the simulations computed on some cities of northe
 \section{Introduction}
 The travelling salesman problem (TSP) consists, as mentioned before, in finding the shortest route a travelling salesman has to take to visit all the cities only once and to return to the starting point. That route is called \textit{hamiltonian cycle} in graph theory (i.e. a cycle that pass through each vertex of a graph just once), indeed the oldest and more technical formulation of the problem was proposed by sir W. R. Hamilton. \\
 An algorithm that provides a solution to the travelling salesman problem can be exploited in a wide variety of applications: for instance, it can be used in logistics to optimize the path of vehicles and consequently to reduce costs. The solutions that exploit euclidean distances can easily be applied to schedule drone shipping in cities without too high skyscrapers and buildings. \\
-It is possible to model the problem using an undirected, weighted and fully connected graph\footnote{For an hamiltinian cycle to exist the graph must be at least connected} $G = (N,E)$, where $N$ is the set of the cities to visit and $E =  N \times N$ is the matrix of weights. In this particular instance of the problem, the weights correspond to the euclidean distance between each couple of cities.\\
+Formally, it is possible to model the problem using an undirected, weighted and fully connected graph\footnote{For an hamiltinian cycle to exist the graph must be at least connected} $G = (N,E)$, where $N$ is the set of the cities to visit and $E =  N \times N$ is the matrix of weights. In this particular instance of the problem, the weights correspond to the euclidean distance between each couple of cities.\\
 Therefore, the route of the travelling salesman is an hamiltonian cycle defined as a sequence of nodes $(n_0, .., n_{k-1})$ of length k such that $n_i \neq n_j \; \forall i,j \in \{1,..., |N|+1\}$ and $n_0 = n_{|N|+1}$. \\
 \subsection{Complexity of the travelling salesman problem}
-Solving the travelling salesman problem pose very tricky computational problems. Indeed, the most intuitive solution to the problem consists in computing all the possible paths and then evaluate all their lengths to find the shortest one. However, the number of possible cycles is at most $\frac{(n-1)!}{2}$ and grows faster than $2^n$ (i.e. $2^n = o(n!)$) and thus making it unsolvable in finite time for large $n$. Moreover, even if it was possible to generate each hamiltonian cycle in constant time independently from their length, the algorithm will still have an exponential time complexity to find the best result.  \\
+Solving the travelling salesman problem pose very tricky computational problems. Indeed, the most intuitive solution to the problem consists in computing all the possible paths and then evaluate all their lengths to find the shortest one. However, the number of possible cycles is $\frac{(n-1)!}{2}$ and grows faster than $2^n$ (i.e. $2^n = o(n!)$) and thus making it unsolvable in finite time for large $n$. Moreover, even if it was possible to generate each hamiltonian cycle in constant time, independently from their length, the algorithm will still have an exponential time complexity to find the best result.  \\
 More techically, TSP is an \textit{NP-hard} problem, meaning that it is at least as hard as the hardest NP-complete problem. \textit{NP-complete} problems are problems that can be solved in polynomial time by a non-deterministic algorithm. For such a class of problem do not exist any known polynomial algorithm to solve them and may not exist. However, noone was able to prove that deterministic polynomial algorithms cannot be found.
 \begin{figure}[H]
 \includegraphics[scale=0.25]{complexity_classes.png} 
@@ -87,12 +87,12 @@ On the other hand, Artificial Neural Networks were exploited only recently since
 Moreover, those algorithms do not provide a strightforward interpretation of their parameters and therefore may not be suitable in logistic applications.
 
 \section{Algorithms and techniques} \label{algorithms}
-This section provides a brief top-down overview of all the techniques and algorithms exploited. They are: Simualted Annealing, Metropolis algorithm and a Genetic algorithm.
+This section provides a top-down overview of all the techniques and algorithms exploited. They are: Simualted Annealing, Metropolis algorithm and a genetic algorithm.
 
 \subsection{Simulated annealing}
 Simulated annealing (SA) is a technique that mimics the behaviour of heated materials slowly cooled down in metallurgy, this process decreases the impurity and increases the size of the crystals meaning that allows the materials to reach the minimum energy state. \\
 It is a technique to approximate the global optimal solution when it is to be searched in an enormous space. Indeed, SA is a metaheuristic that is a general-purpose stochastic heuristic. As every metaheuristic algorithm, it relies on two principles \textit{intensitification} and \textit{diversification}. Indeed, the algorithm intensifies the search near different possible optimal solutions.\\
-SA is very versatile since it does not require any prior information, other than a cost function, indeed it just supposes that states (hamiltonian cycles in this work) are distributed accordingly to the Bolzmann distribution:
+SA is very versatile since it does not require any prior information other than a cost function to be minimized, indeed it just supposes that states (hamiltonian cycles in this work) are distributed accordingly to the Bolzmann distribution:
 \begin{equation}
 e^{- \beta (cost(state))}
 \end{equation}
@@ -121,7 +121,7 @@ In the following algorithm provides a schematic overview of the simulated anneal
 The code executes all the procedures using a vectorial implementation to speed up the computation.
 
 \subsection{Metropolis algorithm}
-As the algorithm above shows, Metropolis  algorithm is exploited to sample states from the Boltzmann distribution. Therefore, this section describes the algorithm and analyzes in details its properties.\\
+As SIMULATED ANNEALING algorithm above shows, Metropolis  algorithm is exploited to sample states from the Boltzmann distribution. Therefore, this section describes the algorithm and analyzes in details its properties.\\
 Metropolis algorithm is a Markov Chain Monte Carlo (MCMC) algorithm used to generate values $X_n$ from a finite set of values $S$ accordingly to a target probability distribution $\pi$.  \\
 The sequence of  $X_n$ can be modelled by Markov chains. Indeed, an homogeneous and finite Markov chain with state space $S$, transition matrix $P$ and initial distribution $\mu$ is a sequence of random variables $\{ X_n \}_{n \in N}$ such that
 \begin{enumerate}
@@ -130,12 +130,12 @@ The sequence of  $X_n$ can be modelled by Markov chains. Indeed, an homogeneous 
 \item $\forall n > 0 \, Pr(X_{n+1} = j | X_n = i) = p(i,j) $
 \end{enumerate}
 Metropolis algorithm is designed in such a way that it is very likely to move from a state with lower probability from a state with higher probability. \\
-The following algorithm describes the metropolis algorithm when the target distribution is the Boltzmann distribution:
+The following algorithm describes the metropolis algorithm when the target distribution $\pi$ is the Boltzmann distribution:
 \begin{equation*}
 \pi(\text{state}) = e^{- \beta \, \text{cost(state)}}
 \end{equation*}
 and $S$ is the set of all possible hamiltonian cycles with fixed length.\\
-In the following we suppose to have generated two hamiltonian cycles (i.e states) old\_state, new\_state. Metropolis algorithms works as follows: if new\_state is likely to be a sample of $\pi$ it is used as new state otherwise, with a certain probability, old\_state is the current state.
+The following disseratation assumes to have generated two hamiltonian cycles (i.e states) old\_state, new\_state, whose generation is described in  section 3.3. Metropolis algorithms works as follows: if new\_state is likely to be a sample of $\pi$ it is used as new state otherwise, with a certain probability, old\_state is the current state.
 
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -155,7 +155,7 @@ In the following we suppose to have generated two hamiltonian cycles (i.e states
 \end{algorithm}
 \noindent
 \subsubsection{Properties of Metropolis algorithm}
-The generation of new hamiltonian cycles is modelled by an undirected and connected graph $G = (S,E)$ whose set of states $S$ contains all the possible hamiltonian cycles and $E$ contains the transition probabilities from an hamiltonian cycle to another one. Given the graph, the transition matrix is defined $P=p(i,j)]_{i,j\in S}$ as
+The sampling of new hamiltonian cycles is modelled by an undirected and connected graph $G = (S,E)$ whose set of states $S$ contains all the possible hamiltonian cycles and $E$ contains the transition probabilities from an hamiltonian cycle to another one. Given the graph $G$, the transition matrix $P=p(i,j)]_{i,j\in S}$ is defined as
 \begin{equation}
 p(i,j) =  \begin{cases} 
 	0\, & \mbox{if } \{i,j\} \notin E  \\ 
@@ -172,7 +172,7 @@ Metropolis algorithm defines a probability distribution $\pi$ that is \textit{re
 \begin{equation}
 	\pi(i)p(i,j) = \pi(j)p(j,i) \;\; \forall i,j \in S
 \end{equation}
-This is a key feature of the algorithm since a reversible distribution $\pi$ is also a stationary distribution, i.e. $\pi'P=\pi'$. This condition holds due the following theorem
+This is a key feature of the algorithm since a reversible distribution $\pi$ is also a stationary distribution, i.e. $\pi'P=\pi'$. This condition holds due the following theorem: 
 \begin{theorem}
 If a probability distribution $\pi$ is a reversible distribution for a markov chain $ \{X_n\} $, then it is also a stationary distribution.
 \end{theorem}
@@ -180,7 +180,7 @@ If a probability distribution $\pi$ is a reversible distribution for a markov ch
 \begin{proof}
 $ (\pi'P)_j = \sum_{i \in S} \pi(i)p(i,j) = \sum_{i \in S} \pi(j)p(j,i) = \pi(j) $ 
 \end{proof}
-\noindent The last condition needed to assure to correctly generate the data accordingly to the target distribution $\pi$ is the uniqueness of the distribution. Nevertheless, a stationary distibution is unique if the transition matrix of the markov chain is primitive as stated by the follwing theorem.
+\noindent The last condition needed to assure to correctly generate the data accordingly to the target distribution $\pi$ is the uniqueness of the distribution. However, stationary distibution is unique if the transition matrix of the markov chain is primitive as stated by the follwing theorem:
 \begin{theorem}
 Let $\{X_n\}$ be a markov chain with a primitive (i.e. irreducible and aperiodic) transition matrix on a finite set, then  there exist only one stationary distribution and it as also the limit distribution $\lim_{n \to \infty} p^n(i,j) = \pi(j)\,  \forall i \in S$
 \end{theorem}
@@ -189,7 +189,7 @@ By the convergence theorem, stationary distributions can be approximated in a lo
 
 \subsection{Genetic algorithm}
 To explain the functioning of the metropolis algorithm, it was assumed to have two states: new\_state and old\_state. In the following is explained how to obtain those states by the means of a genetic algorithm.\\
-Genetic algorithms are a widespread class of algorithms that mimic nature. Indeed there are three fundamental operations  inspired by the theory of evolution by C. Darwin that they perform to generate new states (hamiltonian cycles) \\
+Genetic algorithms are a widespread class of algorithms that mimic nature. Indeed there are three fundamental operations  inspired by the theory of evolution by C. Darwin that they perform to generate new states (hamiltonian cycles). \\
 Among a specie, evolution selects the fittest individuals and therefore the algorithm will chose the fittest (i.e shortest) hamiltonian cycles. \\
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -207,7 +207,7 @@ Among a specie, evolution selects the fittest individuals and therefore the algo
 \caption{Crossbreeding schema}
 \end{figure}
 
-\noindent As random mutations can occur in nature but they are unlikely to, the algorithm swaps two cities with a fixed and low probability. Otherwise mutations will disrupt the optimal subsequence of the cycle inherited. \\
+\noindent As random mutations can occur in nature but they are unlikely to, the algorithm swaps two cities with a fixed and low probability. Otherwise mutations will disrupt the optimal inherited subsequences. \\
 
 
 \begin{algorithm}[H]
@@ -264,7 +264,7 @@ The information were downloaded using the python library \textit{geopy} as follo
 \end{figure}
 
 \subsection{Software used}
-The objective of this simulation is to compare the optimal solutions of the TSP computed by the appromated algorithm and the exact solution.
+The objective of this simulation is to compare the optimal solutions of the TSP computed by the appromated algorithm and the exact solutions.
 However, as explained before, the exact solution of the TSP is not feasible when the number of cities grows too much, therefore they are computed just as long as it is computationally feasible. \\
 The algorithm select a growing set of cities each iteration, executes in parallel some predefined number of simulated annealing and select the best solution among the results of the simulated annealings. Then it computes, if feasible, the exact solution. The values are saved at each iteration and then are plotted to easily show the results.\\
 The code was also instrumented to keep track of the execution time of both algorithms.
